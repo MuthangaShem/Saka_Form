@@ -13,3 +13,8 @@ class CategoryTestClass(TestCase):
 
     def test_category_instance_true(self):
         self.assertTrue(isinstance(self.new_category, Category))
+
+    def test_save_category_method_true(self):
+        self.new_category.save_category()
+        categories = Category.objects.all()
+        self.assertTrue(len(categories) == 1)
