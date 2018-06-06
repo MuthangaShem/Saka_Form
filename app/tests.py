@@ -49,3 +49,8 @@ class EventTestClass(TestCase):
 
     def test_instance_event_true(self):
         self.assertTrue(isinstance(self.new_event, Event))
+
+    def test_save_event_method_true(self):
+        self.new_event.save_event()
+        events = Event.objects.all()
+        self.assertTrue(len(events) == 1)
