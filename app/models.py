@@ -24,3 +24,13 @@ class Category(models.Model):
     @classmethod
     def update_category(cls, id, name, description):
         cls.objects.filter(id=id).update(category_name=name, category_description=description)
+
+
+class Profile(models.Model):
+    """
+    Initializing Profile Model
+    """
+    profile_owner = models.OneToOneField(User)
+    profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
+    profile_name = models.CharField(max_length=80)
+    profile_email = models.CharField(max_length=100)
