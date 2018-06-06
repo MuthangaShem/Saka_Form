@@ -54,3 +54,9 @@ class EventTestClass(TestCase):
         self.new_event.save_event()
         events = Event.objects.all()
         self.assertTrue(len(events) == 1)
+
+    def test_delete_method(self):
+        self.new_event.save_event()
+        self.new_event.delete_event()
+        events = Event.objects.all()
+        self.assertTrue(len(events) == 0)
