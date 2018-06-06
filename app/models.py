@@ -20,3 +20,7 @@ class Category(models.Model):
 
     def delete_category(self):
         self.delete()
+
+    @classmethod
+    def update_category(cls, id, name, description):
+        cls.objects.filter(id=id).update(category_name=name, category_description=description)
