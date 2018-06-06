@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Category
+from .models import Category, Event
 
 
 class CategoryTestClass(TestCase):
@@ -36,3 +36,16 @@ class CategoryTestClass(TestCase):
 
     def tearDown(self):
         Category.objects.all().delete()
+
+
+class EventTestClass(TestCase):
+    """
+    Initializing Event Test Class
+    """
+
+    def setUp(self):
+        self.new_event = Event(event_title='test event', event_image='event-images/image.jpg', event_description='event testing',
+                               event_location='somewhere', number_of_tickets=50, event_type='eventful', event_topic='event test topic')
+
+    def test_instance_event_true(self):
+        self.assertTrue(isinstance(self.new_event, Event))

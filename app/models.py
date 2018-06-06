@@ -41,7 +41,7 @@ class Event(models.Model):
     Initializing Event Model
     """
     event_title = models.CharField(max_length=60)
-    event_image = models.ImageField(upload_to='pics/', null=True)
+    event_image = models.ImageField(upload_to='event-images/', null=True)
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
     number_of_tickets = models.IntegerField()
