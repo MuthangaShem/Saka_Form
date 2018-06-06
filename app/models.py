@@ -53,3 +53,6 @@ class Event(models.Model):
 
     def save_event(self):
         self.save()
+
+    def delete_event(self):
+        self.delete()
