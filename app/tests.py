@@ -33,3 +33,6 @@ class CategoryTestClass(TestCase):
         category_updated = Category.objects.filter(
             category_name='Food', category_description='Everything great and sweet!').all()
         self.assertTrue(len(category) == 1 and len(category_updated) == 0)
+
+    def tearDown(self):
+        Category.objects.all().delete()

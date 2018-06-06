@@ -34,3 +34,19 @@ class Profile(models.Model):
     profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
     profile_email = models.CharField(max_length=100)
+
+
+class Event(models.Model):
+    """
+    Initializing Event Model
+    """
+    event_title = models.CharField(max_length=60)
+    event_image = models.ImageField(upload_to='pics/', null=True)
+    event_description = models.TextField()
+    event_location = models.CharField(max_length=60)
+    number_of_tickets = models.IntegerField()
+    event_type = models.CharField(max_length=60)
+    event_topic = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.event_title
