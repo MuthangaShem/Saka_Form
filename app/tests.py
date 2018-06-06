@@ -60,3 +60,11 @@ class EventTestClass(TestCase):
         self.new_event.delete_event()
         events = Event.objects.all()
         self.assertTrue(len(events) == 0)
+
+    def test_update_method(self):
+        self.new_event.save_event()
+        self.new_event.update_event(self.new_event.id, 'test event title update', 'event-images/event.png',
+                                    'this is a description about the image', 'someplace', 10, 'business', 'diving into techpreneurship')
+        updated_event = Event.objects.filter(
+            event_title='test event title update', event_image='event-images/event.png', event_topic='diving into techpreneurship')
+        self.assertTrue(len(updated_event) == 1)
