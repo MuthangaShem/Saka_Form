@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 
 
-class HomePage(TemplateView):
-    template_name = 'index.html'
+# @login_required
+def home(request):
+    return render(request, 'index.html')
