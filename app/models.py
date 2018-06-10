@@ -56,3 +56,8 @@ class Event(models.Model):
 
     def delete_event(self):
         self.delete()
+
+    # @classmethod
+    # def update_event(cls, id, **kwargs):
+    #     cls.objects.filter(id=id).update(event_title=kwargs['event_title'], event_image=kwargs['event_image'], event_description=kwargs['event_description'],
+    #                                      event_location=kwargs['event_location'], number_of_tickets=kwargs['number_of_tickets'], event_type=kwargs['event_type'], event_topic=kwargs['event_topic'])
