@@ -16,12 +16,35 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+LOGIN_URL = ('accounts/login')
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'accounts/login'
 
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%4l)p3$wm4qikr#&^64uiw487x&0drlz*+exd5x7v!excvxxgi'
+
+# github auth
+SOCIAL_AUTH_GITHUB_KEY = 'a7044dfaf7bc33816cba'
+SOCIAL_AUTH_GITHUB_SECRET = '9805efb4bae009b15354e29fa458c68404b36a5d'
+
+# twitter auth
+SOCIAL_AUTH_TWITTER_KEY = '9TD12xahCWCDdyLzpmw61GSM9'
+SOCIAL_AUTH_TWITTER_SECRET = 'QyKXLkkxvAAylfguI6RtPsmi2d5Q1vniPgqR0ZxMVMbdsRxuEk'
+
+# social auth
+SOCIAL_AUTH_FACEBOOK_KEY = '385298425305419'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd431451f2f6575be03d1d32038deb95b'
+
+# social google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '486763413473-2gigi6rn844a1dimnrj31mocdquouefj.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,9 +61,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
+# <<<<<<< HEAD
+#     'bootstrap4',
+#     'social_django',
+#     'accounts',
+# =======
+    'app.apps.AppConfig',
     'social_django',
-    'accounts',
+    'bootstrap4'
+# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
 ]
 
 MIDDLEWARE = [
@@ -51,8 +80,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# <<<<<<< HEAD
 
-    # social auth middleware
+#     # social auth middleware
+# =======
+# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -70,9 +102,14 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                # social auth 
-                'social_django.context_processors.backends', 
-                'social_django.context_processors.login_redirect'
+# <<<<<<< HEAD
+#                 # social auth 
+#                 'social_django.context_processors.backends', 
+#                 'social_django.context_processors.login_redirect'
+# =======
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
             ],
         },
     },
@@ -86,8 +123,10 @@ WSGI_APPLICATION = 'sakaform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'form',
+        'USER': 'mwangi',
+        'PASSWORD': 'T11111'
     }
 }
 
@@ -110,17 +149,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# authentication backends
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.twitter.TwitterOAuth',  # for Twitter authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
 
