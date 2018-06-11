@@ -66,8 +66,9 @@
     </nav>
 
     <form id="custom-search-input">
+      {% csrf_token %}
       <div class="input-group col-md-12">
-        <input type="text" class="search-query form-control" placeholder="Search"/>
+        <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
         <span class="input-group-btn">
           <button class="btn btn-danger" type="button">
             <i class="fas fa-search"></i>
@@ -76,10 +77,25 @@
       </div>
     </form>
 
+    <div class="row">
+      <div id="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="lading"></div>
+      </div>
+    </div>
+
     {% block content %}{% endblock %}
     {% block scripts %}
       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
       {% bootstrap_javascript %}
     {% endblock %}

@@ -1,17 +1,29 @@
 $(document).ready(function() {
 
-  $('.search-query').keyup(function(event) {
-    event.preventDefault()
+  // $("#").geocomplete(); //location autocomplete
 
-    var search_item = $('.search-query').val();
+  $(document).ajaxStart(function() {
+    $('#loader').show();
+    $('#content').hide();
+  })
+
+  $(document).ajaxStop(function() {
+    // $('#loader').hide();
+  })
+
+  $('.search-query').keyup(function(event) {
+    event.preventDefault();
+
     let search_form = $('form#custom-search-input')
 
-    $.ajax({
-      url: "{% url 'home' %}",
+    let ajax1 = $.ajax({
+      url: "event/ajax/search/event/",
       type: 'POST',
       data: search_form.serialize(),
       dataType: 'json'
-    }).done(function(data) {
+    })
+
+    ajax1.done(function(data) {
       console.log("ssss")
     });
 
