@@ -4,248 +4,6 @@
 
 <html>
 
-<<<<<<< HEAD
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="https://i.imgur.com/PbCNmPB.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <style type="text/css">
-    /*PEN STYLES*/
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700);
-body {
-  background: #f1f1f1;
-  margin: 2rem;
-}
-
-.blog-card {
-  transition: height 0.3s ease;
-  -webkit-transition: height 0.3s ease;
-  background: #fff;
-  border-radius: 3px;
-  box-shadow: 0 3px 7px -3px rgba(0, 0, 0, 0.3);
-  margin: 0 auto 1.6%;
-  overflow: hidden;
-  position: relative;
-  font-size: 14px;
-  line-height: 1.45em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.blog-card:hover .details {
-  left: 0;
-}
-.blog-card:hover.alt .details {
-  right: 0;
-}
-.blog-card.alt .details {
-  right: -100%;
-  left: inherit;
-}
-.blog-card .photo {
-  height: 200px;
-  position: relative;
-}
-.blog-card .photo.photo1 {
-  background: url("http://i62.tinypic.com/34oq4o0.jpg") center no-repeat;
-  background-size: cover;
-}
-.blog-card .photo.photo2 {
-  background: url("http://i60.tinypic.com/xeiv79.jpg") center no-repeat;
-  background-size: cover;
-}
-.blog-card .details {
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.6);
-  box-sizing: border-box;
-  color: #fff;
-  font-family: "Open Sans";
-  list-style: none;
-  margin: 0;
-  padding: 10px 15px;
-  height: 200px;
-  /*POSITION*/
-  position: absolute;
-  top: 0;
-  left: -100%;
-}
-.blog-card .details > li {
-  padding: 3px 0;
-}
-.blog-card .details li:before, .blog-card .details .tags ul:before {
-  font-family: FontAwesome;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-.blog-card .details .author:before {
-  content: "\f007";
-}
-.blog-card .details .date:before {
-  content: "\f133";
-}
-.blog-card .details .tags ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.blog-card .details .tags ul:before {
-  content: "\f02b";
-}
-.blog-card .details .tags li {
-  display: inline-block;
-  margin-right: 3px;
-}
-.blog-card .details a {
-  color: inherit;
-  border-bottom: 1px dotted;
-}
-.blog-card .details a:hover {
-  color: #75D13B;
-}
-.blog-card .description {
-  padding: 10px;
-  box-sizing: border-box;
-  position: relative;
-}
-.blog-card .description h1 {
-  font-family: "Roboto";
-  line-height: 1em;
-  margin: 0 0 10px 0;
-}
-.blog-card .description h2 {
-  color: #9b9b9b;
-  font-family: "Open Sans";
-  line-height: 1.2em;
-  text-transform: uppercase;
-  font-size: 1em;
-  font-weight: 400;
-  margin: 1.2% 0;
-}
-.blog-card .description p {
-  position: relative;
-  margin: 0;
-  padding-top: 20px;
-}
-.blog-card .description p:after {
-  content: "";
-  background: #75D13B;
-  height: 6px;
-  width: 40px;
-  /*POSITION*/
-  position: absolute;
-  top: 6px;
-  left: 0;
-}
-.blog-card .description a {
-  color: #75D13B;
-  margin-bottom: 10px;
-  float: right;
-}
-.blog-card .description a:after {
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  content: "\f061";
-  font-family: FontAwesome;
-  margin-left: -10px;
-  opacity: 0;
-  vertical-align: middle;
-}
-.blog-card .description a:hover:after {
-  margin-left: 5px;
-  opacity: 1;
-}
-
-@media screen and (min-width: 600px) {
-  .blog-card {
-    height: 200px;
-    max-width: 600px;
-  }
-  .blog-card:hover .photo {
-    -webkit-transform: rotate(5deg) scale(1.3);
-            transform: rotate(5deg) scale(1.3);
-  }
-  .blog-card:hover.alt .photo {
-    -webkit-transform: rotate(-5deg) scale(1.3);
-            transform: rotate(-5deg) scale(1.3);
-  }
-  .blog-card.alt .details {
-    padding-left: 30px;
-  }
-  .blog-card.alt .description {
-    float: right;
-  }
-  .blog-card.alt .description:before {
-    -webkit-transform: skewX(5deg);
-            transform: skewX(5deg);
-    right: -15px;
-    left: inherit;
-  }
-  .blog-card.alt .photo {
-    float: right;
-  }
-  .blog-card .photo {
-    transition: all 0.5s ease;
-    -webkit-transition: all 0.5s ease;
-    float: left;
-    height: 100%;
-    width: 40%;
-  }
-  .blog-card .details {
-    width: 40%;
-  }
-  .blog-card .description {
-    float: left;
-    width: 60%;
-    z-index: 0;
-  }
-  .blog-card .description:before {
-    -webkit-transform: skewX(-5deg);
-            transform: skewX(-5deg);
-    content: "";
-    background: #fff;
-    width: 100%;
-    z-index: -1;
-    /*POSITION*/
-    position: absolute;
-    left: -15px;
-    top: 0;
-    bottom: 0;
-  }
-}
-
-  </style>
-  <title>Saka Form</title>
-</head>
-
-<body style="margin-top: 5%">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
-    <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
-      <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
-        <img src="https://i.imgur.com/PbCNmPB.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        SakaForm
-      </a>
-    </div>
-    {% if user.is_authenticated %}
-      <h6 style="color: orange">Logged in as {{user.username|title}} </h6>
-      <a href="{% url 'accounts:logout' %}">
-        <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Logout</button> 
-      </a>
-      {% else %}
-      <a href="{% url 'accounts:login' %}">
-        <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Login</button> 
-      </a>
-    {% endif %}
-  </nav>
-  {% block content %} 
-  {% endblock %}
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-
-</html>
-=======
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -257,6 +15,59 @@ body {
       body {
         background: #f1f1f1;
         margin: 2rem;
+      }
+
+
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #origin-input,
+      #destination-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
+
+      #origin-input:focus,
+      #destination-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #mode-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        margin-left: 12px;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #mode-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
       }
 
       .blog-card {
@@ -478,7 +289,7 @@ body {
           </a>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="">Create Event</a>
+            <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
             <a class="dropdown-item" href="">Manage Event(s)</a>
           </div>
         </div>
@@ -508,7 +319,105 @@ body {
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          mapTypeControl: false,
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13
+        });
+
+        new AutocompleteDirectionsHandler(map);
+      }
+
+       /**
+        * @constructor
+       */
+      function AutocompleteDirectionsHandler(map) {
+        this.map = map;
+        this.originPlaceId = null;
+        this.destinationPlaceId = null;
+        this.travelMode = 'WALKING';
+        var originInput = document.getElementById('origin-input');
+        var destinationInput = document.getElementById('destination-input');
+        var modeSelector = document.getElementById('mode-selector');
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(map);
+
+        var originAutocomplete = new google.maps.places.Autocomplete(
+            originInput, {placeIdOnly: true});
+        var destinationAutocomplete = new google.maps.places.Autocomplete(
+            destinationInput, {placeIdOnly: true});
+
+        this.setupClickListener('changemode-walking', 'WALKING');
+        this.setupClickListener('changemode-transit', 'TRANSIT');
+        this.setupClickListener('changemode-driving', 'DRIVING');
+
+        this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+        this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+      }
+
+      // Sets a listener on a radio button to change the filter type on Places
+      // Autocomplete.
+      AutocompleteDirectionsHandler.prototype.setupClickListener = function(id, mode) {
+        var radioButton = document.getElementById(id);
+        var me = this;
+        radioButton.addEventListener('click', function() {
+          me.travelMode = mode;
+          me.route();
+        });
+      };
+
+      AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+        var me = this;
+        autocomplete.bindTo('bounds', this.map);
+        autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (!place.place_id) {
+            window.alert("Please select an option from the dropdown list.");
+            return;
+          }
+          if (mode === 'ORIG') {
+            me.originPlaceId = place.place_id;
+          } else {
+            me.destinationPlaceId = place.place_id;
+          }
+          me.route();
+        });
+
+      };
+
+      AutocompleteDirectionsHandler.prototype.route = function() {
+        if (!this.originPlaceId || !this.destinationPlaceId) {
+          return;
+        }
+        var me = this;
+
+        this.directionsService.route({
+          origin: {'placeId': this.originPlaceId},
+          destination: {'placeId': this.destinationPlaceId},
+          travelMode: this.travelMode
+        }, function(response, status) {
+          if (status === 'OK') {
+            me.directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      };
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU&libraries=places&callback=initMap"
+        async defer></script>
   </body>
 
 </html>
->>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729

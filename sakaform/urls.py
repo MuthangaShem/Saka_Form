@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+    url(r'^event/', include('app.urls', namespace='event'))
 ]

@@ -61,15 +61,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-# <<<<<<< HEAD
-#     'bootstrap4',
-#     'social_django',
-#     'accounts',
-# =======
     'app.apps.AppConfig',
     'social_django',
-    'bootstrap4'
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+    'bootstrap4',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -80,11 +75,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-# <<<<<<< HEAD
-
-#     # social auth middleware
-# =======
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -102,14 +92,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-# <<<<<<< HEAD
-#                 # social auth 
-#                 'social_django.context_processors.backends', 
-#                 'social_django.context_processors.login_redirect'
-# =======
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
             ],
         },
     },
@@ -121,12 +105,19 @@ WSGI_APPLICATION = 'sakaform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'form',
+#         'USER': 'mwangi',
+#         'PASSWORD': 'T11111'
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'form',
-        'USER': 'mwangi',
-        'PASSWORD': 'T11111'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'database.db'),
     }
 }
 
@@ -206,7 +197,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'accounts/login'
+
+
