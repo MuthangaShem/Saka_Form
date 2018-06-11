@@ -68,7 +68,8 @@ INSTALLED_APPS = [
 # =======
     'app.apps.AppConfig',
     'social_django',
-    'bootstrap4'
+    'bootstrap4',
+    'bootstrap3',
 # >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
 ]
 
@@ -103,8 +104,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
 # <<<<<<< HEAD
-#                 # social auth 
-#                 'social_django.context_processors.backends', 
+#                 # social auth
+#                 'social_django.context_processors.backends',
 #                 'social_django.context_processors.login_redirect'
 # =======
                 'social_django.context_processors.backends',
@@ -125,8 +126,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'form',
-        'USER': 'mwangi',
-        'PASSWORD': 'T11111'
+        'USER': 'faith',
+        'PASSWORD': 'password'
     }
 }
 
@@ -185,7 +186,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# github auth 
+# github auth
 SOCIAL_AUTH_GITHUB_KEY = 'a7044dfaf7bc33816cba'
 SOCIAL_AUTH_GITHUB_SECRET = '9805efb4bae009b15354e29fa458c68404b36a5d'
 
@@ -194,11 +195,11 @@ SOCIAL_AUTH_TWITTER_KEY = '9TD12xahCWCDdyLzpmw61GSM9'
 SOCIAL_AUTH_TWITTER_SECRET = 'QyKXLkkxvAAylfguI6RtPsmi2d5Q1vniPgqR0ZxMVMbdsRxuEk'
 
 # social auth
-SOCIAL_AUTH_FACEBOOK_KEY = '385298425305419' 
-SOCIAL_AUTH_FACEBOOK_SECRET = 'd431451f2f6575be03d1d32038deb95b' 
+SOCIAL_AUTH_FACEBOOK_KEY = '385298425305419'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd431451f2f6575be03d1d32038deb95b'
 
 # social google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='486763413473-2gigi6rn844a1dimnrj31mocdquouefj.apps.googleusercontent.com'  
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='486763413473-2gigi6rn844a1dimnrj31mocdquouefj.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 
 
@@ -206,6 +207,19 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 LOGIN_REDIRECT_URL = '/'

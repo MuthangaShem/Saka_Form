@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
+from .models import Profile,Event,Category
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+def event_dis(request):
+    events = Event.objects.all()
 
-# @login_required
-def home(request):
-    return render(request, 'index.html')
+    return render(request, 'event.html',{'events':events})
