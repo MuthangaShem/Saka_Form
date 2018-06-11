@@ -8,25 +8,28 @@ $(document).ready(function() {
   })
 
   $(document).ajaxStop(function() {
-    // $('#loader').hide();
+    $('#loader').hide();
+    $('#content').show();
   })
 
   $('.search-query').keyup(function(event) {
     event.preventDefault();
 
-    let search_form = $('form#custom-search-input')
+    let search_form = $('form#custom-search-input');
 
     let ajax1 = $.ajax({
       url: "event/ajax/search/event/",
       type: 'POST',
       data: search_form.serialize(),
       dataType: 'json'
-    })
+    });
 
     ajax1.done(function(data) {
-      console.log("ssss")
+      $(data).insertBefore("#content");
     });
 
   });
+
+
 
 })

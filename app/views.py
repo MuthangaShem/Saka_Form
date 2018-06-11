@@ -12,5 +12,5 @@ def search_event(request):
     if request.method == 'POST' and request.is_ajax():
         search_term = request.POST.get('search-term')
         results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
-            event_location__icontains=search_term))
+            event_location__icontains=search_term)).all()
     return render_to_response('ajax/searchresults.html', {"results": results})
