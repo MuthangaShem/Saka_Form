@@ -27,9 +27,8 @@ class SignUp(CreateView):
 # <<<<<<< HEAD
 # =======
 
+
 # @login_required
-
-
 def settings(request):
     user = request.user
 
