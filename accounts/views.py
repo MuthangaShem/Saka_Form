@@ -18,9 +18,8 @@ class SignUp(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'accounts/signup.html'
 
+
 # @login_required
-
-
 def settings(request):
     user = request.user
 
