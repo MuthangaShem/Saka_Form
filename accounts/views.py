@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView
+# <<<<<<< HEAD
+
+# from . import forms
+
+# # Create your views here.
+# =======
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -11,12 +17,15 @@ from django.contrib import messages
 from social_django.models import UserSocialAuth
 
 from . import forms
+# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
 
 
 class SignUp(CreateView):
     form_class = forms.UserSignUpForm
     success_url = reverse_lazy('login')
     template_name = 'accounts/signup.html'
+# <<<<<<< HEAD
+# =======
 
 # @login_required
 
@@ -74,3 +83,4 @@ def password(request):
     else:
         form = PasswordForm(request.user)
     return render(request, 'accounts/password.html', {'form': form})
+# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
