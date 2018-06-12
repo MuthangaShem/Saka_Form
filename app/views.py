@@ -5,7 +5,10 @@ from django.db.models import Q
 
 # @login_required
 def home(request):
-    return render(request, 'index.html')
+    categories = Category.objects.all()
+    events = Event.objects.all()
+
+    return render(request, 'index.html', {'events': events, 'categories': categories, 'cat_list': cat_list})
 
 
 def search_event(request):
