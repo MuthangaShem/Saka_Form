@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+
+{% block extrahead %}       {# Extra Resources Start #}
+{{ form.media }}            {# Form required JS and CSS #}
+{% endblock %}              {# Extra Resources End #}
 {% block content%}
 <div class="container main">
     <div class="row">

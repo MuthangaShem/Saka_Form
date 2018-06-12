@@ -2,3 +2,6 @@ virtual/
 .env
 media/
 *.pyc
+__pycache__/
+database.db
+migrations/
