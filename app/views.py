@@ -8,18 +8,17 @@ from django.db.models import Q
 
 # @login_required
 def home(request):
-    return render(request, 'index.html')
+	events = Event.objects.all()
+	return render(request, 'index.html',{'events':events})
 
 
 
 @login_required
 def create_event(request):
-	current_user = request.user
 	if request.method == 'POST':
 		form = Event_Creation(request.POST, request.FILES)
 		if form.is_valid():
-			event = form.save(commit=False)
-			event.user = current_user
+			event = form.save()
 			event.save()
 			return redirect('home')
 	else:
