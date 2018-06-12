@@ -42,7 +42,7 @@ class Event(models.Model):
     """
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='event-images/', null=True)
-    event_category = models.ForeignKey('Category')
+    event_category = models.ForeignKey('Category', null=True)
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
     event_owner = models.ForeignKey(Profile)
