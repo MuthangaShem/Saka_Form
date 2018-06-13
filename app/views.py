@@ -9,7 +9,8 @@ from django.db.models import Q
 # @login_required
 def home(request):
 	events = Event.objects.all()
-	return render(request, 'index.html',{'events':events})
+    categories = Category.objects.all()
+    return render(request, 'index.html', {'events': events, 'categories': categories})
 
 
 
