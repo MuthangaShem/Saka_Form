@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+
+{% block extrahead %}       {# Extra Resources Start #}
+{{ form.media }}            {# Form required JS and CSS #}
+{% endblock %}              {# Extra Resources End #}
 {% block content%}
 <div class="container main">
     <div class="row">
         <form method="post" >
             {% csrf_token %}
             {% bootstrap_form form%}
-            <input type="submit" class="btn btn-outline-secondary" value="Create">
+            <input type="submit" class="btn btn-outline-secondary" value="Create"">
         </form>
     </div>
 </div>

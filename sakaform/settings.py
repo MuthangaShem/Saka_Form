@@ -49,7 +49,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'social_django',
     'bootstrap4',
     'django_extensions',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -115,7 +116,6 @@ WSGI_APPLICATION = 'sakaform.wsgi.application'
 #     }
 # }
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -164,6 +164,37 @@ TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
 
+
+# authentication backends
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.twitter.TwitterOAuth',  # for Twitter authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId', # for Google authentication
+    'social_core.backends.google.GoogleOAuth2', # for Google authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+# github auth 
+SOCIAL_AUTH_GITHUB_KEY = 'a7044dfaf7bc33816cba'
+SOCIAL_AUTH_GITHUB_SECRET = '9805efb4bae009b15354e29fa458c68404b36a5d'
+
+# twitter auth
+SOCIAL_AUTH_TWITTER_KEY = '9TD12xahCWCDdyLzpmw61GSM9'
+SOCIAL_AUTH_TWITTER_SECRET = 'QyKXLkkxvAAylfguI6RtPsmi2d5Q1vniPgqR0ZxMVMbdsRxuEk'
+
+# social auth
+SOCIAL_AUTH_FACEBOOK_KEY = '385298425305419' 
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd431451f2f6575be03d1d32038deb95b' 
+
+# social google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='486763413473-2gigi6rn844a1dimnrj31mocdquouefj.apps.googleusercontent.com'  
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -184,9 +215,6 @@ LOGOUT_REDIRECT_URL = 'accounts/login'
 
 
 
-<<<<<<< HEAD
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
-=======
->>>>>>> parent of 3b559b0... edit create event function and form

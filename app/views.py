@@ -9,24 +9,20 @@ from django.db.models import Q
 # @login_required
 def home(request):
 	events = Event.objects.all()
-	categories = Category.objects.all()
-	return render(request, 'index.html', {'events': events, 'categories': categories})
+	return render(request, 'index.html',{'events':events})
 
 
 
 @login_required
 def create_event(request):
+	# current_user = request.user
 	if request.method == 'POST':
 		form = Event_Creation(request.POST, request.FILES)
 		if form.is_valid():
 			event = form.save()
+			# event.user = current_user
 			event.save()
-<<<<<<< HEAD
-			print('imesave!!')
 		return redirect('home')
-=======
-			return redirect('home')
->>>>>>> parent of 3b559b0... edit create event function and form
 	else:
 		form = Event_Creation()
 	return render(request, 'create_event.html',{'form':form})
