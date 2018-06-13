@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'social_django',
     'bootstrap4',
     'django_extensions',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -165,6 +166,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

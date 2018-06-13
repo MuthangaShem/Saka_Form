@@ -42,6 +42,7 @@ class Event(models.Model):
     """
     Initializing Event Model
     """
+    event_owner = models.ForeignKey(Profile, null=True)
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='event-images/', null=True)
     event_category = models.ForeignKey('Category', null=True)
@@ -50,8 +51,8 @@ class Event(models.Model):
     event_owner = models.ForeignKey(Profile)
     number_of_tickets = models.IntegerField()
     event_type = models.CharField(max_length=60)
-    event_date = models.DateTimeField()
-    event_created_on = models.DateTimeField(auto_now_add=True)
+    event_date = models.DateTimeField(null=True, blank=True)
+    event_created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
 
     def __str__(self):
         return self.event_title
@@ -61,6 +62,9 @@ class Event(models.Model):
 
     def delete_event(self):
         self.delete()
+
+    class Meta:
+        ordering = ['-event_created_on']
 
     # @classmethod
     # def update_event(cls, id, **kwargs):
