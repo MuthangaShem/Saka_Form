@@ -4,7 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-
 # from location_field.models.plain import PlainLocationField
 
 class Category(models.Model):
@@ -36,6 +35,13 @@ class Profile(models.Model):
     profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
     profile_email = models.CharField(max_length=100)
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(profile_owner=instance)
+        instance.profile.save()
 
 
 class Event(models.Model):
