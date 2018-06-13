@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .forms import Event_Creation
 from .models import *
 from django.db.models import Q
+from django.forms.models import inlineformset_factory
 
 
 # @login_required
@@ -37,3 +38,33 @@ def search_event(request):
         results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
             event_location__icontains=search_term)).all()
     return render_to_response('ajax/searchresults.html', {"results": results})
+
+
+@login_required
+def profile(request):
+    current_user = request.user
+    profile_details = User.objects.get(id=request.user.id)
+
+    user = User.objects.get(id=current_user.id)
+
+    update_form = ProfileUpdateForm(instance=user)
+
+    ProfileInlineFormset = inlineformset_factory(
+        User, Profile, fields=('profile_photo', 'profile_id',))
+    formset = ProfileInlineFormset(instance=user)
+
+    if current_user.is_authenticated() and current_user.id == user.id:
+        if request.method == "POST":
+            update_form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
+            formset = ProfileInlineFormset(request.POST, request.FILES, instance=user)
+
+            if update_form.is_valid():
+                updated_user = update_form.save(commit=False)
+                formset = ProfileInlineFormset(request.POST, request.FILES, instance=current_user)
+
+                if formset.is_valid():
+                    updated_user.save()
+                    formset.save()
+                    return redirect(index)
+
+    return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
