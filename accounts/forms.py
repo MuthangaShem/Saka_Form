@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.contrib.auth.models import User
 
 
-# Creating forms
 class UserSignUpForm(UserCreationForm):
 
     class Meta:
@@ -15,3 +16,10 @@ class UserSignUpForm(UserCreationForm):
         self.fields['email'].label = 'E-mail Address'
         self.fields['password1'].label = 'Account password'
         self.fields['password2'].label = 'Confirm account password'
+
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email',)

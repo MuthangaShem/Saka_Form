@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  <div class="well upload-form profile-form">
+
+    <h2>Update your profile</h2>
+    <hr>
+    <form action="." method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ updated_user.as_p }}
+      <div class="divider"></div>
+      {{ formset.management_form }}
+      {{ formset.as_p }}
+      <button type="submit" class="btn btn-success">
+        Done
+      </button>
+
+    </form>
+
+  </div>
+
+{% endblock %}

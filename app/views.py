@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from .forms import Event_Creation
 from .models import *
 from django.db.models import Q
-from django.forms.models import inlineformset_factory
 
 
 # @login_required
@@ -24,7 +23,7 @@ def create_event(request):
         if form.is_valid():
             event = form.save(commit=False)
             # event.user = current_user
-            event_user = profile_instance
+            event_owner = profile_instance
             event.save()
             return redirect('home')
     else:

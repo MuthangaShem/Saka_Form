@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 # from location_field.models.plain import PlainLocationField
+
 
 class Category(models.Model):
     """
@@ -34,7 +34,6 @@ class Profile(models.Model):
     profile_owner = models.OneToOneField(User)
     profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
-    profile_email = models.CharField(max_length=100)
 
 
 @receiver(post_save, sender=User)
@@ -48,16 +47,15 @@ class Event(models.Model):
     """
     Initializing Event Model
     """
-    event_owner = models.ForeignKey(Profile, null=True)
+    event_owner = models.ForeignKey(Profile)
     event_title = models.CharField(max_length=60)
-    event_image = models.ImageField(upload_to='event-images/', null=True)
+    event_image = models.ImageField(upload_to='event-images/', blank=True, null=True)
+    event_type = models.CharField(max_length=60)
     event_category = models.ForeignKey('Category', null=True)
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
-    event_owner = models.ForeignKey(Profile)
     number_of_tickets = models.IntegerField()
-    event_type = models.CharField(max_length=60)
-    event_date = models.DateTimeField(null=True, blank=True)
+    event_date = models.DateTimeField()
     event_created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
 
     def __str__(self):

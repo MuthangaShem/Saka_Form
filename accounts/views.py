@@ -1,12 +1,7 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView
-# <<<<<<< HEAD
 
-# from . import forms
-
-# # Create your views here.
-# =======
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -15,55 +10,49 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 
 from social_django.models import UserSocialAuth
-
-from . import forms
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+from django.forms.models import inlineformset_factory
+from django.contrib.auth.models import User
+from app.models import Profile
+from .forms import *
 
 
 class SignUp(CreateView):
-    form_class = forms.UserSignUpForm
+    form_class = UserSignUpForm
     success_url = reverse_lazy('login')
     template_name = 'accounts/signup.html'
-# <<<<<<< HEAD
-# =======
 
 
-# @login_required
+@login_required
 def settings(request):
-    user = request.user
+    current_user = request.user
+    profile_details = User.objects.get(id=request.user.id)
 
-    try:
-        github_login = user.social_auth.get(provider='github')
-    except UserSocialAuth.DoesNotExist:
-        github_login = None
+    user = User.objects.get(id=current_user.id)
 
-    try:
-        twitter_login = user.social_auth.get(provider='twitter')
-    except UserSocialAuth.DoesNotExist:
-        twitter_login = None
+    update_form = ProfileUpdateForm(instance=user)
 
-    try:
-        facebook_login = user.social_auth.get(provider='facebook')
-    except UserSocialAuth.DoesNotExist:
-        facebook_login = None
+    ProfileInlineFormset = inlineformset_factory(
+        User, Profile, fields=('profile_interest', 'profile_name',))
+    formset = ProfileInlineFormset(instance=user)
 
-    try:
-        google_login = user.social_auth.get(provider='google')
-    except UserSocialAuth.DoesNotExist:
-        google_login = None
+    if current_user.is_authenticated() and current_user.id == user.id:
+        if request.method == "POST":
+            update_form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
+            formset = ProfileInlineFormset(request.POST, request.FILES, instance=user)
 
-    can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
+            if update_form.is_valid():
+                updated_user = update_form.save(commit=False)
+                formset = ProfileInlineFormset(request.POST, request.FILES, instance=current_user)
 
-    return render(request, 'accounts/settings.html', {
-        'github_login': github_login,
-        'twitter_login': twitter_login,
-        'facebook_login': facebook_login,
-        'google_login': google_login,
-        'can_disconnect': can_disconnect
-    })
+                if formset.is_valid():
+                    updated_user.save()
+                    formset.save()
+                    return redirect(index)
+
+    return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
 
 
-# @login_required
+@login_required
 def password(request):
     if request.user.has_usable_password():
         PasswordForm = PasswordChangeForm
@@ -82,4 +71,3 @@ def password(request):
     else:
         form = PasswordForm(request.user)
     return render(request, 'accounts/password.html', {'form': form})
-# >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729

@@ -4,7 +4,9 @@ body {
   margin: 2rem;
   padding-top: 60px;
 }
-
+label[for=id_profile-0-DELETE], #id_profile-0-DELETE {
+  display: none !important;
+}
 /* ACCORDION */
 
 .mb-0>a {
