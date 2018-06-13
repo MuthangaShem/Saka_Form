@@ -63,9 +63,6 @@ class Event(models.Model):
     def delete_event(self):
         self.delete()
 
-    class Meta:
-        ordering = ['-event_created_on']
-
     # @classmethod
     # def update_event(cls, id, **kwargs):
     #     cls.objects.filter(id=id).update(event_title=kwargs['event_title'], event_image=kwargs['event_image'], event_description=kwargs['event_description'],

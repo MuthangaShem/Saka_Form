@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'social_django',
     'bootstrap4',
     'django_extensions',
-    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -185,6 +184,9 @@ LOGOUT_REDIRECT_URL = 'accounts/login'
 
 
 
+<<<<<<< HEAD
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+=======
+>>>>>>> parent of 3b559b0... edit create event function and form

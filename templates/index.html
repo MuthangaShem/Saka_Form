@@ -61,38 +61,27 @@
 
 	<!--PEN CODE-->
 	{% if events%}
-	<div class="col-md-6">
 	{% for event in events%}
-
-		<div class="container" id="content">
-			<div class="blog-card">
-				<div class="photo photo1">{{event.event_image}}</div>
-				<ul class="details">
-					<li class="author"><a href="#">{{event.event_owner}}</a></li>
-					<li class="date">{{event.event_date}}</li>
-					<li class="tags">
-						<ul>
-							<li>
-								<a href="#">Learn</a>
-							</li>
-							<li>
-								<a href="#">Code</a>
-							</li>
-							<li>
-								<a href="#">HTML</a>
-							</li>
-							<li>
-								<a href="#">CSS</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<div class="description">
-					<h1>{{event.event_title}}</h1>
-					<h2>{{event.event_location}}</h2>
-					<p class="summary">{{event.event_description}}</p>
-					<a href="#">Read More</a>
-				</div>
+	<div class="col-md-6">
+		<div class="blog-card">
+			<div class="photo photo1"></div>
+			<ul class="details">
+				<li class="author"><a href="#">{{event.event_owner}}</a></li>
+				<li class="date">{{event.event_date}}</li>
+				<li class="tags">
+					<ul>
+						<li><a href="#">Learn</a></li>
+						<li><a href="#">Code</a></li>
+						<li><a href="#">HTML</a></li>
+						<li><a href="#">CSS</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="description">
+				<h1>{{event.title}}</h1>
+				<h2>Opening a door to the future</h2>
+				<p class="summary">{{event.event_description}}</p>
+				<a href="#">Read More</a>
 			</div>
 		</div>
 	{% endfor %}
