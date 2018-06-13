@@ -16,21 +16,21 @@
             <img src="{{ event.event_image.url}}" alt="">
             <div class="project-hover">
               <div class="inside">
-                <p>
+                <h4>
                   EVENT TITLE:{{ event.event_title }}
-                </p>
-                <p>EVENT DESCRIPTION:{{ event.event_description }}
-                </p>
+                </h4>
+                <h4>EVENT DESCRIPTION:{{ event.event_description }}
+                </h4>
               </div>
             </div>
           </div>
-          <p>
+          <h4>
             EVENT TOPIC:{{ event.event_topic}}
-          </p>
+          </h4>
           <br>
-          <p>EVENT TYPE:{{ event.event_type }}</p><br>
-          <p>EVENT LOCATION:{{ event.event_location }}</p><br>
-          <p>TICKETS AVAILABLE:{{ event.number_of_tickets }}</p>
+          <h4>EVENT TYPE:{{ event.event_type }}</h4><br>
+          <h4>EVENT LOCATION:{{ event.event_location }}</h4><br>
+          <h4>TICKETS AVAILABLE:{{ event.number_of_tickets }}</h4>
         </div>
       {% endfor %}
     </div>
