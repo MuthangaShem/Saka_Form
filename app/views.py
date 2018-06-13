@@ -23,6 +23,7 @@ def create_event(request):
 			event = form.save()
 			# event.user = current_user
 			event.save()
+			print('imesave!!')
 		return redirect('home')
 	else:
 		form = Event_Creation()

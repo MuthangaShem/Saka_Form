@@ -42,7 +42,7 @@ class Event(models.Model):
     """
     Initializing Event Model
     """
-    event_owner = models.ForeignKey(Profile, null=True)
+    event_owner = models.ForeignKey(Profile)
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='event-images/', null=True)
     event_category = models.ForeignKey('Category', null=True)
