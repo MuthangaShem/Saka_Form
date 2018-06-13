@@ -205,6 +205,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+<<<<<<< HEAD
 
 MEDIA_URL = '/media/'
 
@@ -218,3 +219,8 @@ LOGOUT_REDIRECT_URL = 'accounts/login'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+=======
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+>>>>>>> 80c804fb7ff2f201d7acb9a3dec1230c0ce7cf85
