@@ -1,0 +1,242 @@
+{% extends "base.html" %} {% load bootstrap3 %} {% block content %}
+
+
+<div class="signup__container">
+  <div class="container__child signup__thumbnail">
+      <div class="thumbnail__logo">
+          <p class="logo__text" style="margin-top:20px; font-size:30px;font-family: 'Monoton', cursive;color: #ffc107" >SakaForm</p>
+        </div>
+    <div class="thumbnail__content">
+      <h1 class="heading--primary">Welcome to SakaForm.</h1>
+      <h2 class="heading--secondary">Are you ready to join the 'A' team?</h2>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <div class="login-page">
+      <form class="form" method="POST">
+        {% if form.errors %}
+          <p style="color:red"> Some information is inaccurate </p>
+        {% endif %}
+         
+          {% csrf_token %}
+         <center><h>Sign Up</h></center> 
+
+          <label style="color:black">{{form.username.label}}</label> {{form.username}}{{form.username.errors}}
+          <label style="color:black">{{form.email.label}}</label> {{form.email}}{{form.email.errors}}
+          <label style="color:black">{{form.password1.label}}</label> {{form.password1}}{{form.password1.errors}}
+          <label style="color:black">{{form.password2.label}}</label> {{form.password2}}{{form.password2.errors}}
+          <a href="/profile">
+          <button>Sign Up</button>
+          </a>
+          <p class="message1">Already registered? <a href="{% url 'accounts:login' %}">Sign In</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+  @import url("https://fonts.googleapis.com/css?family=Droid+Sans|Amaranth|Monoton");
+  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+  .message1 {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+
+  .message1 a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+
+  form {
+    width: 100%;
+    height: 200%;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: black;
+   
+}
+
+h {
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+}
+ 
+  }
+
+  select {
+    padding: 6px;
+    height: 32px;
+    border-radius: 2px;
+  }
+
+  button {
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    background-color: #4bc970;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #3ac162;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+    margin-bottom: 10px;
+  }
+
+  fieldset {
+    margin-bottom: 30px;
+    border: none;
+  }
+
+  legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  label.light {
+    font-weight: 300;
+    display: inline;
+  }
+
+  .signup__container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    transform: translateY(-50%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    height: 500px;
+    border-radius: 3px;
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, .25);
+    font-size: 30px;
+  }
+
+  .signup__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .76);
+    opacity: 0.5;
+  }
+
+  .container__child {
+    width: 50%;
+    height: 120%;
+    color: #fff;
+  }
+
+  .signup__thumbnail {
+    position: relative;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: url('https://images.unsplash.com/photo-1492546662075-aabebf46dee2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fa31c57eafca4772d09602394cb0cb64&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .thumbnail__logo,
+  .thumbnail__content,
+  .thumbnail__links {
+    position: relative;
+    z-index: 2;
+  }
+
+  .thumbnail__logo {
+    align-self: flex-start;
+  }
+
+  h1,
+  h2 {
+    font-weight: 300;
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .heading--secondary {
+    font-size: 1.414rem;
+  }
+
+  .thumbnail__links {
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  .thumbnail__links a {
+    font-size: 1rem;
+    color: #fff;
+    &:focus,
+    &:hover {
+      color: rgba(255, 255, 255, .5);
+    }
+  }
+
+  .signup__form {
+    padding: 2.5rem;
+    background: #fafafa;
+  }
+
+  label {
+    font-size: .85rem;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+
+
+  [type="text"] {
+    color: #111;
+  }
+
+  [type="password"] {
+    color: #111;
+  }
+
+  .btn--form {
+    padding: .5rem 2.5rem;
+    font-size: .95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border-radius: 35px;
+    &:focus,
+    &:hover {
+      background: lighten(#111, 13%);
+    }
+  }
+
+  .signup__link {
+    font-size: 2rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: #999;
+    &:focus,
+    &:hover {
+      color: darken(#999, 13%);
+    }
+  }
+</style>
+{% endblock %}
+

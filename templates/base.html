@@ -1,0 +1,145 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://i.imgur.com/PbCNmPB.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Saka Form</title>
+    {% block styles %}
+      {% bootstrap_css %}
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    {% endblock %}
+  </head>
+
+  <body style="margin-top: 5%">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
+      <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
+        <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
+          <img src="https://i.imgur.com/PbCNmPB.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          SakaForm
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+        <h6 style="color: orange">Logged in as
+          {{user.username|title}}
+        </h6>
+
+        <div class="dropdown show">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Events
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
+            <a class="dropdown-item" href="">Manage Event(s)</a>
+          </div>
+        </div>
+
+        <div class="dropdown show">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            profile
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'accounts:settings' %}">profile preferences</a>
+            <a class="dropdown-item" href="{% url 'accounts:password' %}">manage password</a>
+          </div>
+        </div>
+
+        <a href="{% url 'accounts:logout' %}">
+          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Logout</button>
+        </a>
+
+      {% else %}
+        <a href="{% url 'accounts:login' %}">
+          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Login</button>
+        </a>
+      {% endif %}
+    </nav>
+
+    <form id="custom-search-input">
+      {% csrf_token %}
+      <div class="input-group col-md-12">
+        <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
+        <span class="input-group-btn">
+          <button class="btn btn-danger" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <div class="row">
+      <div id="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="lading"></div>
+      </div>
+    </div>
+
+    {% block content %}
+      <h3>hkjikj</h3>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav navbar-right">
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">Action</a>
+              </li>
+              <li>
+                <a href="#">Another action</a>
+              </li>
+              <li>
+                <a href="#">Something else here</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="#">Separated link</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU&libraries=places&callback=initMap" async defer></script> -->
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
+      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+      <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+      {% bootstrap_javascript %}
+    {% endblock %}
+
+
+
+
+
+
+
+  </body>
+
+</html>
