@@ -125,3 +125,9 @@ function initMap() {
           }
         });
       };
+
+// interests selection function
+$(".interests").on("click",
+            function(){
+                $(this).toggleClass("interestsActive");
+            });

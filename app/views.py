@@ -10,8 +10,11 @@ from django.db.models import Q
 def home(request):
     categories = Category.objects.all()
     events = Event.objects.all()
-
     return render(request, 'index.html', {'events': events, 'categories': categories})
+
+def interests(request):
+    interests = Category.objects.all()
+    return render(request, 'interests.html', {'interests':interests})
 
 
 @login_required

@@ -67,9 +67,9 @@
 	<div class="container" id="content">
 		<div class="blog-card">
 			{% if event.event_image %}
-			<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+			<div class="photo photo1" style="background:url({{ event.event_image.url }}) center no-repeat; background-size: cover"></div>
 			{% else %}
-			<div class="photo photo1"><img src="{% static 'images/event_image' %}" class="img-responsive myImg" alt=""></div>
+			<div class="photo photo1"><img src="{% static 'images/event_image' %}"  alt=""></div>
 			{% endif %}
 			<ul class="details">
 				<li class="author"><a href="#">{{event.event_owner}}</a></li>
