@@ -16,14 +16,15 @@ def home(request):
 
 @login_required
 def create_event(request):
+
     current_user = request.user
     profile_instance = Profile.objects.get(profile_owner=current_user)
+
     if request.method == 'POST':
         form = Event_Creation(request.POST, request.FILES)
         if form.is_valid():
             event = form.save(commit=False)
-            # event.user = current_user
-            event_owner = profile_instance
+            event.event_owner = profile_instance
             event.save()
             return redirect('home')
     else:

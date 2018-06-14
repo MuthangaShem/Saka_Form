@@ -8,21 +8,23 @@ class Event_Creation(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('event_title',
-                  # 'event_description',
-                  # 'event_category',
                   'event_image',
                   'event_location',
+                  'event_category',
+                  'event_description',
                   'number_of_tickets',
                   'event_type',
                   'event_date',
                   )
-        widgets = {
-            'event_date': DateTimePickerInput(
-                options={
-                    "format": "MM/DD/YYYY",  # moment date-time format
-                    "showClose": True,
-                    "showClear": True,
-                    "showTodayButton": True,
-                }
-            ),
-        }
+
+        # widgets = {'event_date': DateTimePickerInput(attrs={'class': 'datepicker'})}
+        # widgets = {
+        #     'event_date': DateTimePickerInput(
+        #         options={
+        #             "format": "MM/DD/YYYY",  # moment date-time format
+        #             "showClose": True,
+        #             "showClear": True,
+        #             "showTodayButton": True,
+        #         }
+        #     ),
+        # }
