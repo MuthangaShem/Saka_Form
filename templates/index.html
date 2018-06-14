@@ -3,28 +3,61 @@
 {% load static %}
 
 {% block content %}
-<div class="row">
-	<div class="col-md-6">
-		<input id="origin-input" class="controls" type="text"
-	        placeholder="Enter an origin location">
+	{{ block.super }}
+	<!-- <div class="container" style="margin: 10%"> <div class="row"> <div class="col-md-6 offset-md-3" > <div class="jumbotron"> <h1 > Karibu sana {{user.username|title}} </h1> </div> </div> </div> </div> -->
 
-	    <input id="destination-input" class="controls" type="text"
-	        placeholder="Enter a destination location">
+	<!-- ACCORDION -->
+	{% if categories|length > 0 %}
+		<div id="accordion">
+			<div class="card">
+				<div class="card-header" id="heading-1">
+					<h5 class="mb-0">
+						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+							CATEGORY
+						</a>
+					</h5>
+				</div>
+				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
+					{% for category in categories %}
 
-	    <div id="mode-selector" class="controls">
-	      <input type="radio" name="type" id="changemode-walking" checked="checked">
-	      <label for="changemode-walking">Walking</label>
+						<div class="card-body">
 
-	      <input type="radio" name="type" id="changemode-transit">
-	      <label for="changemode-transit">Transit</label>
+							{{ category.category_name|capfirst }}
 
-	      <input type="radio" name="type" id="changemode-driving">
-	      <label for="changemode-driving">Driving</label>
-	    </div>
+						</div>
 
-	    <div id="map"></div>
-	</div>
+					{% endfor %}
+				</div>
 
+			</div>
+		</div>
+	{% endif %}
+	{% if events|length > 0 %}
+		<div id="accordion">
+			<div class="card">
+				<div class="card-header" id="heading-1">
+					<h5 class="mb-0">
+						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+							EVENT TYPE
+						</a>
+					</h5>
+				</div>
+				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
+					{% for event in events %}
+
+						<div class="card-body">
+
+							{{event.event_category|capfirst }}
+
+						</div>
+
+					{% endfor %}
+				</div>
+
+			</div>
+		</div>
+	{% endif %}
+	<!-- END ACCORDION -->
 
 	<!--PEN CODE-->
 	{% if events%}
@@ -33,7 +66,11 @@
 
 	<div class="container" id="content">
 		<div class="blog-card">
-			<div class="photo photo1">{{event.event_image}}</div>
+			{% if event.event_image %}
+			<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+			{% else %}
+			<div class="photo photo1"><img src="{% static 'images/event_image' %}" class="img-responsive myImg" alt=""></div>
+			{% endif %}
 			<ul class="details">
 				<li class="author"><a href="#">{{event.event_owner}}</a></li>
 				<li class="date">{{event.event_date}}</li>
@@ -60,12 +97,24 @@
 				<p class="summary">{{event.event_description}}</p>
 				<a href="#">Read More</a>
 			</div>
-			{% endfor %}
-			{% endif %}
 		</div>
 	</div>
-	</div> 
+	{% endfor %}
+</div>
+{% else %}
+<div class="col-md-6">
+<div class="container" id="content">
+	<div class="blog-card">
+
+		<div class="description">
+			<h1 class="card-body">NO CURRENT EVENTS AROUND YOU</h1>
+
+		</div>
+	</div>
+</div>
+</div>
+
+{% endif %}
 	<!--END PEN CODE -->
 
 {% endblock %}
-

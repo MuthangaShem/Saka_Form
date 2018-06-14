@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  // $("#").geocomplete(); //location autocomplete
+  $("input#id_event_location").geocomplete();
 
   $(document).ajaxStart(function() {
     $('#loader').show();
@@ -125,5 +125,3 @@ function initMap() {
           }
         });
       };
-
-
