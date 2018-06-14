@@ -32,7 +32,7 @@ class Profile(models.Model):
     Initializing Profile Model
     """
     profile_owner = models.OneToOneField(User)
-    profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
+    profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
 
     def __str__(self):
