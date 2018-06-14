@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns=[
     url(r'^$',views.event_dis,name = 'event_dis'),
-
+    url(r'^searchresults/',views.search_event, name='search')
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

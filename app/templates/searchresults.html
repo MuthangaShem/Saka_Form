@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap3 %}
+{% block content %}
+  <div class="container">
+
+    <div class="row">
+      {% if results%}
+        <h2>Found
+          {{ results|length }}</h2>
+      {% else %}
+        <h2>
+          Found 0 events for the search term</h2>
+      {% endif %}
+
+    </div>
+
+    <div class="row">
+
+      {% if results %}
+        {% for result in results %}
+          <div class="col-sm-6 col-md-3">
+            <h1>{{event.event_title }}</h1>
+            <img src="{{event.event_image_link.url}}" class="img-responsive" max-width="300" height="300">
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
