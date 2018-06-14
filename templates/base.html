@@ -40,7 +40,9 @@
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
-            <a class="dropdown-item" href="">Manage Event(s)</a>
+            {% if user.profile.event_set.all %}
+            <a class="dropdown-item" href="{% url 'event:manage_event' %}">Manage Event(s)</a>
+            {% endif %}
           </div>
         </div>
 
@@ -93,36 +95,10 @@
     </div>
 
     {% block content %}
-      <h3>hkjikj</h3>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav navbar-nav navbar-right">
 
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#">Action</a>
-              </li>
-              <li>
-                <a href="#">Another action</a>
-              </li>
-              <li>
-                <a href="#">Something else here</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#">Separated link</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
     {% endblock %}
 
     {% block scripts %}
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU&libraries=places&callback=initMap" async defer></script> -->
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -133,12 +109,6 @@
       <script src="{% static 'js/app.js' %}"></script>
       {% bootstrap_javascript %}
     {% endblock %}
-
-
-
-
-
-
 
   </body>
 

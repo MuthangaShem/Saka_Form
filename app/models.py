@@ -60,7 +60,7 @@ class Event(models.Model):
     number_of_tickets = models.CharField(max_length=8,
                                          validators=[
                                              RegexValidator(
-                                                 regex=r'^(\d{1,8})$',
+                                                 regex=r'^(\d{1,5})$',
                                                  message='Please enter a valid ticket number'
                                              ),
                                          ])

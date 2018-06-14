@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import Event_Creation
 from .models import *
 from django.db.models import Q
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 
 # @login_required
@@ -30,6 +32,37 @@ def create_event(request):
     else:
         form = Event_Creation()
     return render(request, 'create_event.html', {'form': form})
+
+
+@login_required
+def manage_event(request):
+
+    current_user = request.user
+    user_events = current_user.profile.event_set.all()
+
+    form = Event_Creation()
+
+    if request.method == "GET" and 'event_id' in request.GET and request.is_ajax():
+        event_pk = request.GET.get('event_id')
+        found_event = Event.objects.get(id=event_pk)
+
+        update_form = Event_Creation(initial={'event_title': found_event.event_title, 'event_image': found_event.event_image,
+                                              'event_location': found_event.event_location, 'event_category': found_event.event_category, 'event_description': found_event.event_description, 'number_of_tickets': found_event.number_of_tickets, 'event_type': found_event.event_type, 'event_date': found_event.event_date})
+
+        return render_to_response('update_modal.html', {'form': update_form})
+
+    return render(request, 'manage_event.html', {'events': user_events})
+
+
+@login_required
+def update_event(request, event_id):
+    if request.method == 'POST':
+        instance = get_object_or_404(Event, id=event_id)
+        form = Event_Creation(request.POST or None, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Event updated successfully')
+    return redirect(reverse('event:manage_event'))
 
 
 def search_event(request):

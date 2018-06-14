@@ -30,9 +30,26 @@ $(document).ready(function() {
 
   });
 
+  $("a#trigger-edit-modal").each(function() {
+    $(this).click(function(){
+    var event_id = $(this).data('href');
 
+    var modal_ajax= $.ajax({
+      url: '/event/manage_event/',
+      type: 'GET',
+      data: {
+        'event_id': event_id
+      },
+    });
+    modal_ajax.done(function(data) {
+      console.log(data)
+      $("div.update-e").find('input[type=hidden]').after(data);
+    });
 
-})
+  });
+});
+
+});
 
 // mapping function
 function initMap() {
