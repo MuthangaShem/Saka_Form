@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import Event_Creation
 from .models import *
 from django.db.models import Q
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 
 # @login_required
