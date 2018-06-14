@@ -107,22 +107,14 @@ WSGI_APPLICATION = 'sakaform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'form',
-#         'USER': 'mwangi',
-#         'PASSWORD': 'T11111'
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'database.db'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'form',
+        'USER': 'mwangi',
+        'PASSWORD': 'T11111'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -209,11 +201,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'accounts/login'
-
-
 
 BOOTSTRAP4 = {
     'include_jquery': True,

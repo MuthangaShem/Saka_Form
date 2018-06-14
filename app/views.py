@@ -12,9 +12,7 @@ def home(request):
     events = Event.objects.all()
     return render(request, 'index.html', {'events': events, 'categories': categories})
 
-
-
-@login_required
+# @login_required
 def create_event(request):
     current_user = request.user
     if request.method == 'POST':
