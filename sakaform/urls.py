@@ -20,6 +20,7 @@ from app import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+<<<<<<< HEAD
     # url(r'^$', views.HomePage.as_view(), name='home'),
 
     url(r'', include('app.urls')),
@@ -27,4 +28,11 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 # >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+=======
+    url(r'^$', views.home, name='home'),
+    url(r'^event/', include('app.urls', namespace='event')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 ]

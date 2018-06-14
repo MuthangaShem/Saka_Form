@@ -11,11 +11,21 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+<<<<<<< HEAD
+=======
+from decouple import config
+import dj_database_url
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+<<<<<<< HEAD
+=======
+db_from_env = dj_database_url.config(conn_max_age=500)
+
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 LOGIN_URL = ('accounts/login')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'accounts/login'
@@ -49,7 +59,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = []
+=======
+ALLOWED_HOSTS = ['*']
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 
 
 # Application definition
@@ -61,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
 # <<<<<<< HEAD
 #     'bootstrap4',
 #     'social_django',
@@ -71,6 +86,14 @@ INSTALLED_APPS = [
     'bootstrap4',
     'bootstrap3',
 # >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+=======
+    'accounts.apps.AccountsConfig',
+    'app.apps.AppConfig',
+    'social_django',
+    'bootstrap4',
+    'django_extensions',
+    'bootstrap_datepicker_plus',
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 ]
 
 MIDDLEWARE = [
@@ -81,11 +104,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+<<<<<<< HEAD
 # <<<<<<< HEAD
 
 #     # social auth middleware
 # =======
 # >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+=======
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -103,6 +129,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
+<<<<<<< HEAD
 # <<<<<<< HEAD
 #                 # social auth
 #                 'social_django.context_processors.backends',
@@ -111,6 +138,10 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
 # >>>>>>> 5621387e0888a58f5dc24579ce31704187eb6729
+=======
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
             ],
         },
     },
@@ -126,12 +157,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'form',
+<<<<<<< HEAD
         'USER': 'faith',
         'PASSWORD': 'password'
     }
 }
 
 
+=======
+        'USER': 'mwangi',
+        'PASSWORD': 'T11111'
+    }
+}
+
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -172,6 +211,7 @@ TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
 
+<<<<<<< HEAD
 
 # authentication backends
 AUTHENTICATION_BACKENDS = (
@@ -206,16 +246,29 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+=======
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = [
+<<<<<<< HEAD
    os.path.join(BASE_DIR, "static"),
 ]
+=======
+    os.path.join(BASE_DIR, "static"),
+]
+
+DATABASES['default'].update(db_from_env)
+
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+<<<<<<< HEAD
 
 MEDIA_URL = '/media/'
 
@@ -224,3 +277,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'accounts/login'
+=======
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+>>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
