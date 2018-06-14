@@ -142,3 +142,12 @@ function initMap() {
           }
         });
       };
+<<<<<<< HEAD
+=======
+
+// interests selection function
+$(".interests").on("click",
+            function(){
+                $(this).toggleClass("interestsActive");
+            });
+>>>>>>> d9731459a4989f97ee3d704f05e75b4c047e0ddf
