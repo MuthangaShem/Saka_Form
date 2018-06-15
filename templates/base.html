@@ -20,7 +20,7 @@
     {% endblock %}
   </head>
 
-  <body style="margin-top: 5%">
+  <body style=" margin: 0;padding: 0;margin-top: 5%;height:100vh">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
       <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
         <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
@@ -70,7 +70,7 @@
 
     <form id="custom-search-input">
       {% csrf_token %}
-      <div class="input-group col-md-12">
+      <div class="input-group col-md-6">
         <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
         <span class="input-group-btn">
           <button class="btn btn-danger" type="button">
@@ -95,8 +95,6 @@
     </div>
 
     {% block content %}
-
-      
     {% endblock %}
 
     {% block scripts %}

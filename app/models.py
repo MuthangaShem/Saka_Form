@@ -69,7 +69,7 @@ class Event(models.Model):
                                              ),
                                          ])
     event_date = models.DateTimeField(null=True, blank=True)
-    event_created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
+    event_created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.event_title

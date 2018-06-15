@@ -40,7 +40,6 @@ $(document).ready(function() {
 
       let event_id = $(this).data('evid');
 
-
       let ajax1 = $.ajax({
         url: "event/ajax/accordion/",
         type: 'POST',
@@ -100,10 +99,11 @@ $(document).ready(function() {
 
   });
 
-
+  // interests click handler
   $(".interests").on("click", function() {
-    $(this).toggleClass("interestsActive");
-  });
+    $(this).find(".answer").toggle(300);
+    $(this).find(".fa").toggleClass('fa_plus fa_minus');
+  })
 
 });
 
