@@ -45,7 +45,7 @@ $(document).ready(function() {
         url: "event/ajax/accordion/",
         type: 'POST',
         data: {
-          'event_pk': event_id
+          event_pk: event_id
         }
       });
 

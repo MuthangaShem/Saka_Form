@@ -6,6 +6,7 @@ from .models import *
 from django.db.models import Q
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home(request):
@@ -73,13 +74,29 @@ def update_event(request, event_id):
     return redirect(reverse('event:manage_event'))
 
 
-def search_event(request):
+def ajax_search_event(request):
 
     if request.method == 'POST' and request.is_ajax():
         search_term = request.POST.get('search-term')
         results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
             event_location__icontains=search_term)).all()
     return render_to_response('ajax/searchresults.html', {"events": results})
+
+
+@csrf_exempt
+def ajax_accordion_redirect(request):
+
+    if request.method == "POST" and 'event_pk' in request.POST and request.is_ajax():
+        event_pk = request.POST['event_pk']
+        found_event = EventType.objects.get(id=event_pk)
+        results = found_event.event_set.all()
+        return render_to_response('ajax/searchresults.html', {"events": results})
+
+    if request.method == "POST" and 'category_pk' in request.POST and request.is_ajax():
+        category_pk = request.POST['category_pk']
+        found_category = Category.objects.get(id=category_pk)
+        results = found_category.event_set.all()
+        return render_to_response('ajax/searchresults.html', {"events": results})
 
 
 @login_required
