@@ -57,8 +57,8 @@ class Event(models.Model):
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
-    event_type = models.CharField(max_length=60, blank=True, null=True)
-    event_category = models.ForeignKey('Category', null=True, blank=True)
+    event_type = models.ForeignKey('EventType')
+    event_category = models.ForeignKey('Category')
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
     number_of_tickets = models.CharField(max_length=8,
@@ -82,3 +82,13 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['-event_created_on']
+
+
+class EventType(models.Model):
+    """
+    Initializing EventType Model
+    """
+    type_name = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.type_name

@@ -16,15 +16,3 @@ class Event_Creation(forms.ModelForm):
                   'event_type',
                   'event_date',
                   )
-
-        # widgets = {'event_date': DateTimePickerInput(attrs={'class': 'datepicker'})}
-        # widgets = {
-        #     'event_date': DateTimePickerInput(
-        #         options={
-        #             "format": "MM/DD/YYYY",  # moment date-time format
-        #             "showClose": True,
-        #             "showClear": True,
-        #             "showTodayButton": True,
-        #         }
-        #     ),
-        # }
