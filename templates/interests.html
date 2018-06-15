@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 {% block content %}
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-3 interests" style="background-image: url('http://img1.wikia.nocookie.net/__cb20120325155243/simpsons/images/2/28/200px-Orville_Simpson.png'); min-height: 200px;background-repeat: none; background-size: contain;" >
+<div class="container-fluid" >
+	<h3 style="font-family: Roboto;">Please choose at least 3 topics you are interested in...</h3>
+	<div class="row" style="border:0;height: 70vh">
+		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="border:0;padding: 0;  ">
+			<div class="zoomimage  " >
+				<img class="interests" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=307335bc320e3b00ab80a4e7a5dd971d&auto=format&fit=crop&w=750&q=80">
+				<div class="text-wrapper">
+	            	<h5 class="question">Category</h5>
+	            	<span class="fa fa_plus" style="font-size: 30px;color:orange"></span>
+	            	<h4 class="answer">Selected</h4>
+	        	</div>
+			</div>			
 		</div>
-
 	</div>
+	
+<button class="btn btn-lg btn-primary" style="width: 100%; position: fixed;margin bottom: 10 ">Done</button>
+
+
 </div>
+<script>  
+	$(".question").on("click", function(){
+    $(this).find(".answer").toggle(300);
+    $(this).find($(".fa")).toggleClass('fa_plus fa_minus');
+</script>
 {% endblock%}

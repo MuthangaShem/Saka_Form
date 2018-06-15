@@ -1,27 +1,27 @@
+{% extends "base.html" %} {% load bootstrap4 %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
 
-            <input type="submit" class="btn btn-success" value="Sign Up">
-            {% csrf_token %} {% bootstrap_form form layout='inline' %}
-          </form>
-          <form method="POST">
-          <p class="textsize text-center">Already have an account? <a href="{% url 'accounts:login' %}" class="card-link">Log In</a></p>
-        </div>
-        </div>
-        <div class="card-body">
-        <div class="card-body">
+    </div>
+    <div class="col-md-4">
+      <div class="card" style="width: 18rem; margin-top: 20%; opacity: 0.8">
         <h5 class="card-header text-center">Sign Up</h5>
-      </div>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %} {% bootstrap_form form layout='inline' %}
+            <input type="submit" class="btn btn-success" value="Sign Up">
+          </form>
+        </div>
       </div>
       <div class="card mt-2 mb-3" style="width: 18rem;">
-      <div class="card" style="width: 18rem; margin-top: 20%; opacity: 0.8">
-    </div>
-    </div>
+        <div class="card-body">
+          <p class="textsize text-center">Already have an account? <a href="{% url 'accounts:login' %}" class="card-link">Log In</a></p>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-    <div class="col-md-4">
-    <div class="col-md-4">
+    </div>
   </div>
-  <div class="row">
 </div>
-<div class="container">
 {% endblock %}
-{% extends "base.html" %} {% load bootstrap4 %} {% block content %}

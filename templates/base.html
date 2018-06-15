@@ -20,7 +20,7 @@
     {% endblock %}
   </head>
 
-  <body style="margin-top: 5%">
+  <body style=" margin: 0;padding: 0;margin-top: 5%;height:100vh">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
       <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
         <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
@@ -68,7 +68,7 @@
 
     <form id="custom-search-input">
       {% csrf_token %}
-      <div class="input-group col-md-12">
+      <div class="input-group col-md-6">
         <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
         <span class="input-group-btn">
           <button class="btn btn-danger" type="button">
@@ -93,35 +93,13 @@
     </div>
 
     {% block content %}
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav navbar-nav navbar-right">
 
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#">Action</a>
-              </li>
-              <li>
-                <a href="#">Another action</a>
-              </li>
-              <li>
-                <a href="#">Something else here</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#">Separated link</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+
     {% endblock %}
 
     {% block scripts %}
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU&libraries=places&callback=initMap" async defer></script> -->
+    <script>  
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -130,6 +108,11 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
+      <script>  
+        $(".question").on("click", function(){
+          $(this).find(".answer").toggle(300);
+          $(this).find($(".fa")).toggleClass('fa_plus fa_minus');
+      </script>
       {% bootstrap_javascript %}
     {% endblock %}
   </body>

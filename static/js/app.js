@@ -31,6 +31,10 @@ $(document).ready(function() {
   });
 
 
+  $(".interests").on("click", function(){
+    $(this).find(".answer").toggle(300);
+    $(this).find($(".fa")).toggleClass('fa_plus fa_minus');
+
 
 })
 
@@ -127,7 +131,7 @@ function initMap() {
       };
 
 // interests selection function
-$(".interests").on("click",
-            function(){
-                $(this).toggleClass("interestsActive");
-            });
+
+
+
+  
