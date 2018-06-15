@@ -17,6 +17,9 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
+    class Meta:
+        verbose_name_plural = 'categories'
+
     def save_category(self):
         self.save()
 
@@ -61,11 +64,7 @@ class Event(models.Model):
     number_of_tickets = models.CharField(max_length=8,
                                          validators=[
                                              RegexValidator(
-<<<<<<< HEAD
                                                  regex=r'^(\d{1,5})$',
-=======
-                                                 regex=r'^(\d{1,8})$',
->>>>>>> d9731459a4989f97ee3d704f05e75b4c047e0ddf
                                                  message='Please enter a valid ticket number'
                                              ),
                                          ])

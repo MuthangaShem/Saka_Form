@@ -4,8 +4,6 @@
 
 {% block content %}
 	{{ block.super }}
-	<!-- <div class="container" style="margin: 10%"> <div class="row"> <div class="col-md-6 offset-md-3" > <div class="jumbotron"> <h1 > Karibu sana {{user.username|title}} </h1> </div> </div> </div> </div> -->
-
 	<!-- ACCORDION -->
 	{% if categories|length > 0 %}
 		<div id="accordion">
@@ -37,12 +35,12 @@
 			<div class="card">
 				<div class="card-header" id="heading-1">
 					<h5 class="mb-0">
-						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+						<a role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="true" aria-controls="collapse-1">
 							EVENT TYPE
 						</a>
 					</h5>
 				</div>
-				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
+				<div id="collapse-2" class="collapse" aria-labelledby="heading-1-1">
 					{% for event in events %}
 
 						<div class="card-body">
@@ -60,16 +58,16 @@
 	<!-- END ACCORDION -->
 
 	<!--PEN CODE-->
-	{% if events%}
-	<div class="col-md-6">
+
+	<div class="col-md-6" id="e-content">
 	{% for event in events%}
 
-	<div class="container" id="content">
+	<div class="container" >
 		<div class="blog-card">
 			{% if event.event_image %}
 			<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
 			{% else %}
-			<div class="photo photo1"><img src="{% static 'images/event_image' %}" class="img-responsive myImg" alt=""></div>
+			<div class="photo photo1"><img src="{% static 'images/no-event.jpg' %}" class="img-responsive myImg" alt=""></div>
 			{% endif %}
 			<ul class="details">
 				<li class="author">{{event.event_owner}}</li>
@@ -99,11 +97,8 @@
 			</div>
 		</div>
 	</div>
-	{% endfor %}
-</div>
-{% else %}
-<div class="col-md-6">
-<div class="container" id="content">
+{% empty %}
+<div class="container">
 	<div class="blog-card">
 
 		<div class="description">
@@ -112,9 +107,9 @@
 		</div>
 	</div>
 </div>
+{% endfor %}
 </div>
 
-{% endif %}
 	<!--END PEN CODE -->
 
 {% endblock %}

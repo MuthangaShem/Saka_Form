@@ -13,9 +13,10 @@ def home(request):
     events = Event.objects.all()
     return render(request, 'index.html', {'events': events, 'categories': categories})
 
+
 def interests(request):
     interests = Category.objects.all()
-    return render(request, 'interests.html', {'interests':interests})
+    return render(request, 'interests.html', {'interests': interests})
 
 
 @login_required
@@ -72,7 +73,7 @@ def search_event(request):
         search_term = request.POST.get('search-term')
         results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
             event_location__icontains=search_term)).all()
-    return render_to_response('ajax/searchresults.html', {"results": results})
+    return render_to_response('ajax/searchresults.html', {"events": results})
 
 
 @login_required
