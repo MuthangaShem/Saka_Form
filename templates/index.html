@@ -6,29 +6,32 @@
 	{{ block.super }}
 	<!-- ACCORDION -->
 	{% if categories|length > 0 %}
-		<div id="accordion">
-			<div class="card">
-				<div class="card-header" id="heading-1">
-					<h5 class="mb-0">
-						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-							CATEGORY
-						</a>
-					</h5>
-				</div>
-				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
-					{% for category in categories %}
-
-						<div class="card-body">
-							{% if category.event_set.all|length > 0 %}
-								<a href="" data-catid="{{ category.id }}" id="cat-accordion">{{ category.category_name|capfirst }}</a>
-							{% endif %}
+	<div class="row">
+		<div class= "col-md-3" >
+			<div id="accordion">
+					<div class="card">
+						<div class="card-header" id="heading-1">
+							<h5 class="mb-0">
+								<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+									CATEGORY
+								</a>
+							</h5>
 						</div>
+						<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
+							{% for category in categories %}
 
-					{% endfor %}
-				</div>
+								<div class="card-body">
+									{% if category.event_set.all|length > 0 %}
+										<a href="" data-catid="{{ category.id }}" id="cat-accordion">{{ category.category_name|capfirst }}</a>
+									{% endif %}
+								</div>
 
+							{% endfor %}
+						</div>
+					</div>
 			</div>
-		</div>
+
+
 	{% endif %}
 	{% if event_types|length > 0 %}
 		<div id="accordion">
@@ -54,6 +57,7 @@
 
 			</div>
 		</div>
+	</div>
 	{% endif %}
 	<!-- END ACCORDION -->
 
@@ -62,10 +66,9 @@
 	<div class="col-md-6" id="e-content">
 		{% for event in events%}
 
-			<div class="container">
 				<div class="blog-card">
 					{% if event.event_image %}
-						<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+						<div class="photo photo1" ><img  style="position:relative;background-size: cover" src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
 					{% else %}
 						<div class="photo photo1"><img src="{% static 'images/no-event.jpg' %}" class="img-responsive myImg" alt=""></div>
 					{% endif %}
@@ -73,30 +76,21 @@
 						<li class="author">{{event.event_owner}}</li>
 						<li class="date">{{event.event_date}}</li>
 						<li class="tags">
+
 							<ul>
 								<li>
-									<a href="#">Learn</a>
-								</li>
-								<li>
-									<a href="#">Code</a>
-								</li>
-								<li>
-									<a href="#">HTML</a>
-								</li>
-								<li>
-									<a href="#">CSS</a>
+									<a href="#">{{ event.event_category }}</a>
 								</li>
 							</ul>
 						</li>
 					</ul>
 					<div class="description">
-						<h1>{{event.event_title}}</h1>
+						<h3>{{event.event_title}}</h3>
 						<h2>{{event.event_location}}</h2>
 						<p class="summary">{{event.event_description}}</p>
-						<a href="#" class="btn">Register For Event</a>
+						<a href="#" >Register</a>
 					</div>
 				</div>
-			</div>
 			{% empty %}
 			<div class="container">
 				<div class="blog-card">
@@ -109,6 +103,8 @@
 			</div>
 		{% endfor %}
 	</div>
+</div>
+
 
 	<!--END PEN CODE -->
 

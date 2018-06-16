@@ -29,9 +29,9 @@
         </a>
       </div>
       {% if user.is_authenticated %}
-        <h6 style="color: orange">Logged in as
+        <h7 style="color: orange">Logged in as
           {{user.username|title}}
-        </h6>
+        </h7>
 
         <div class="dropdown show">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,11 +108,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
-      <script>  
-        $(".question").on("click", function(){
-          $(this).find(".answer").toggle(300);
-          $(this).find($(".fa")).toggleClass('fa_plus fa_minus');
-      </script>
       {% bootstrap_javascript %}
     {% endblock %}
   </body>
