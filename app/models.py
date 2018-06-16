@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import RegexValidator
-# from location_field.models.plain import PlainLocationField
 
 
 class Category(models.Model):
@@ -38,7 +37,7 @@ class Profile(models.Model):
     profile_owner = models.OneToOneField(User)
     profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80, blank=True, null=True)
-    profile_location = models.CharField(max_length=254)
+    profile_location = models.CharField(max_length=254, null=True)
 
     def __str__(self):
         return self.profile_owner.username

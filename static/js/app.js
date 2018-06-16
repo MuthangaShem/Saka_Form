@@ -100,6 +100,7 @@ $(document).ready(function() {
   });
 
   // interests click handler
+  var checkedCounter = 0;
   $("div[class='zoomimage']").each(function() {
     let $this = $(this)
 
@@ -107,16 +108,16 @@ $(document).ready(function() {
       $this.find('.answer').toggle(300);
       $this.find('.fa').toggleClass('fa_plus fa_minus');
 
-      if ($this.find('input:checkbox[id=check]').is(":checked")) {
-        $this.find('input:checkbox[id=check]').attr("checked", false);
+      if ($this.find('input:checkbox[class=check]').is(":checked")) {
+        $this.find('input:checkbox[class=check]').attr("checked", false);
+        checkedCounter-=1;
       } else {
-        $this.find('input:checkbox[id=check]').attr("checked", true);
+        $this.find('input:checkbox[class=check]').attr("checked", true);
+        checkedCounter+=1;
       }
 
       // Check Min Selected Categories
-      let totalChecked=$this.find('input:checkbox[id=check]').length;
-
-      if (totalChecked>=3){
+      if (checkedCounter>=3){
         $("button#done").attr("disabled",false);
       }else{
         $("button#done").attr("disabled",true);
@@ -143,7 +144,7 @@ $("button#done").click(function(){
   });
 
   ajax4.done(function(data) {
-    console.log("hoho")
+    window.location.href = "/";
   });
 
 });

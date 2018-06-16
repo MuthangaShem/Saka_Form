@@ -15,7 +15,7 @@
 {% for interest in interests %}
 		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="border:0;padding: 0;  ">
 			<div class="zoomimage" >
-				<input data-id="{{ interest.id }}" type="checkbox" id="check" />
+				<input data-id="{{ interest.id }}" type="checkbox" class="check" />
 				<img class="interests" src="{{ interest.category_image.url }}">
 				<div class="text-wrapper">
 	            	<h5 class="question">{{ interest.category_name }}
