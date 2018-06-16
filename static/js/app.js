@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
   // Event Location Google maps suggestion
+  $("input#id_location").geocomplete();
   $("input#id_event_location").geocomplete();
 
   // Ajax Loader Start Trigger
@@ -113,6 +114,15 @@ $(document).ready(function() {
         $this.find('input:checkbox[id=check]').attr("checked", true);
       }
 
+      // Check Min Selected Categories
+      let totalChecked=$this.find('input:checkbox[id=check]').length;
+
+      if (totalChecked>=3){
+        $("button#done").attr("disabled",false);
+      }else{
+        $("button#done").attr("disabled",true);
+      }
+
     })
 
   });
@@ -138,7 +148,6 @@ $("button#done").click(function(){
   });
 
 });
-
 
 });
 

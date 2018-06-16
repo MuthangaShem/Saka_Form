@@ -37,7 +37,8 @@ class Profile(models.Model):
     """
     profile_owner = models.OneToOneField(User)
     profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
-    profile_name = models.CharField(max_length=80)
+    profile_name = models.CharField(max_length=80, blank=True, null=True)
+    profile_location = models.CharField(max_length=254)
 
     def __str__(self):
         return self.profile_owner.username
@@ -45,8 +46,9 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
+    u_location = getattr(instance, '_location', None)
     if created:
-        Profile.objects.create(profile_owner=instance)
+        Profile.objects.create(profile_owner=instance, profile_location=u_location)
         instance.profile.save()
 
 

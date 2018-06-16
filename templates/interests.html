@@ -4,34 +4,23 @@
 <div class="container-fluid" >
 	<h3 style="font-family: Roboto;">Please choose at least 3 topics you are interested in...</h3>
 	<div class="row" style="border:0;height: 70vh">
-<!--  -->
+{% for interest in interests %}
 		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="border:0;padding: 0;  ">
 			<div class="zoomimage" >
-				<input data-id="7" type="checkbox" id="check" />
-				<img class="interests" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=307335bc320e3b00ab80a4e7a5dd971d&auto=format&fit=crop&w=750&q=80">
+				<input data-id="{{ interest.id }}" type="checkbox" id="check" />
+				<img class="interests" src="{{ interest.category_image.url }}">
 				<div class="text-wrapper">
-	            	<h5 class="question">Category</h5>
+	            	<h5 class="question">{{ interest.category_name }}
+								<br><small>{{ interest.category_description }}</small></h5>
 	            	<span class="fa fa_plus" style="font-size: 30px;color:orange"></span>
-	            	<h4 class="answer">Selected</h4>
+	            	<h4 class="answer"><i style="color:green;font-size:180%;" class="fas fa-check"></i></h4>
 	        	</div>
 			</div>
 		</div>
-
-		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="border:0;padding: 0;  ">
-			<div class="zoomimage" >
-				<input data-id="9" type="checkbox" id="check" />
-				<img class="interests" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=307335bc320e3b00ab80a4e7a5dd971d&auto=format&fit=crop&w=750&q=80">
-				<div class="text-wrapper">
-	            	<h5 class="question">Category</h5>
-	            	<span class="fa fa_plus" style="font-size: 30px;color:orange"></span>
-	            	<h4 class="answer">Selected</h4>
-	        	</div>
-			</div>
-		</div>
-		<!--  -->
+		{% endfor %}
 	</div>
 
-<button id="done" class="btn btn-lg btn-primary" style="width: 100%; position: fixed;margin bottom: 10 ">Done</button>
+<button id="done" disabled="disabled" class="btn btn-lg btn-primary" style="width: 100%; position: fixed;margin bottom: 10 ">Done</button>
 
 
 </div>

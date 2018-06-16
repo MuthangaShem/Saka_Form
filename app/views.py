@@ -11,10 +11,14 @@ import json
 
 
 def home(request):
-
+    current_user = request.user
+    if current_user.is_authenticated():
+        user_interests = Profile.objects.get(profile_owner=current_user).profile_interest.all()
+        events = Event.objects.filter(event_category__in=user_interests).all()
+    events = Event.objects.all()
     categories = Category.objects.all()
     event_accordion = EventType.objects.all()
-    events = Event.objects.all()
+
     return render(request, 'index.html', {'events': events, 'event_types': event_accordion, 'categories': categories})
 
 
