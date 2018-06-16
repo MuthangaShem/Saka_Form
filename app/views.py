@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def home(request):
@@ -97,6 +98,18 @@ def ajax_accordion_redirect(request):
         found_category = Category.objects.get(id=category_pk)
         results = found_category.event_set.all()
         return render_to_response('ajax/searchresults.html', {"events": results})
+
+
+@csrf_exempt
+def ajax_handle_user_categories(request):
+
+    current_user = request.user
+    profile_instance = Profile.objects.get(id=request.user.id)
+    if request.method == "POST" and 'category_arr' in request.POST and request.is_ajax():
+        selected_list = json.loads(request.POST.get('category_arr'))
+        profile_instance.profile_interest.set(selected_list)
+        # return redirect(reverse('home'))
+        return render_to_response('ajax/searchresults.html')
 
 
 @login_required

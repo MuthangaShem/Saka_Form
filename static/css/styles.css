@@ -565,9 +565,10 @@ html, body {
   text-align: center;
   min-width: 100%;
   min-height: 100%;
+  cursor: pointer;
 }
 
-img {
+.zoomimage>img {
   max-width: 100%;
   max-height: 100%;
   transition: 0.75s;
@@ -582,7 +583,10 @@ img {
   filter: alpha(opacity=40);
   transform: scale(1.2);
 }
-
+.zoomimage>input[type=checkbox]{
+  opacity: 0;
+  z-index: -1;
+}
 .text-wrapper {
   width: 100%;
   position: relative;

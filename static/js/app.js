@@ -6,13 +6,13 @@ $(document).ready(function() {
   // Ajax Loader Start Trigger
   $(document).ajaxStart(function() {
     $('#loader').show();
-    $('#content').hide();
+    $('div#e-content').hide();
   })
 
   // Ajax Loader Stop Trigger
   $(document).ajaxStop(function() {
     $('#loader').hide();
-    $('#content').show();
+    $('div#e-content').show();
   })
 
   // Search Functionality
@@ -80,9 +80,9 @@ $(document).ready(function() {
   // Modal Form Details Update
   $("a#trigger-edit-modal").each(function() {
     $(this).click(function() {
-      var event_id = $(this).data('href');
+      let event_id = $(this).data('href');
 
-      var modal_ajax = $.ajax({
+      let modal_ajax = $.ajax({
         url: '/event/manage_event/',
         type: 'GET',
         data: {
@@ -100,10 +100,45 @@ $(document).ready(function() {
   });
 
   // interests click handler
-  $(".interests").on("click", function() {
-    $(this).find(".answer").toggle(300);
-    $(this).find(".fa").toggleClass('fa_plus fa_minus');
-  })
+  $("div[class='zoomimage']").each(function() {
+    let $this = $(this)
+
+    $this.click(function() {
+      $this.find('.answer').toggle(300);
+      $this.find('.fa').toggleClass('fa_plus fa_minus');
+
+      if ($this.find('input:checkbox[id=check]').is(":checked")) {
+        $this.find('input:checkbox[id=check]').attr("checked", false);
+      } else {
+        $this.find('input:checkbox[id=check]').attr("checked", true);
+      }
+
+    })
+
+  });
+
+  // Get All Checked Categories Handler
+$("button#done").click(function(){
+  var checkedCat = [];
+  $('input:checkbox:checked').each(function () {
+       let $ThisVal = (this.checked ? $(this).data('id') : "");
+       checkedCat.push($ThisVal);
+  });
+
+  let ajax4 = $.ajax({
+    url: "ajax/handle/",
+    type: 'POST',
+    data: {
+      'category_arr': JSON.stringify(checkedCat)
+    }
+  });
+
+  ajax4.done(function(data) {
+    console.log("hoho")
+  });
+
+});
+
 
 });
 
