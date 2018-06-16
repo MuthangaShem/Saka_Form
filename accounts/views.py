@@ -46,18 +46,10 @@ def settings(request):
            if update_form.is_valid():
                updated_user = update_form.save(commit=False)
                formset = ProfileInlineFormset(request.POST, request.FILES, instance=current_user)
-
-<<<<<<< HEAD
-                if formset.is_valid():
-                    updated_user.save()
-                    formset.save()
-                    return redirect(reverse('home'))
-=======
                if formset.is_valid():
                    updated_user.save()
                    formset.save()
                    return redirect(index)
->>>>>>> fc9b3daa2a2513bd57b22e1742f144bf7466e7d2
 
    return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
 
