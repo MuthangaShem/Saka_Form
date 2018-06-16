@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-<<<<<<< HEAD
-=======
 from django.core.validators import RegexValidator
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
+
 # from location_field.models.plain import PlainLocationField
 
 
@@ -41,9 +35,6 @@ class Profile(models.Model):
     profile_owner = models.OneToOneField(User)
     profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
-<<<<<<< HEAD
-    profile_email = models.CharField(max_length=100)
-=======
 
     def __str__(self):
         return self.profile_owner.username
@@ -54,22 +45,13 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(profile_owner=instance)
         instance.profile.save()
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 
 
 class Event(models.Model):
     """
     Initializing Event Model
     """
-<<<<<<< HEAD
-    event_title = models.CharField(max_length=60)
-    event_image = models.ImageField(upload_to='event-images/', null=True)
-    event_description = models.TextField()
-    event_location = models.CharField(max_length=60)
-    number_of_tickets = models.IntegerField()
-    event_type = models.CharField(max_length=60)
-    event_topic = models.CharField(max_length=255)
-=======
+
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
@@ -86,7 +68,6 @@ class Event(models.Model):
                                          ])
     event_date = models.DateTimeField(null=True, blank=True)
     event_created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 
     def __str__(self):
         return self.event_title
@@ -97,12 +78,5 @@ class Event(models.Model):
     def delete_event(self):
         self.delete()
 
-<<<<<<< HEAD
-    # @classmethod
-    # def update_event(cls, id, **kwargs):
-    #     cls.objects.filter(id=id).update(event_title=kwargs['event_title'], event_image=kwargs['event_image'], event_description=kwargs['event_description'],
-    #                                      event_location=kwargs['event_location'], number_of_tickets=kwargs['number_of_tickets'], event_type=kwargs['event_type'], event_topic=kwargs['event_topic'])
-=======
     class Meta:
         ordering = ['-event_created_on']
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de

@@ -2,8 +2,3 @@ virtual/
 .env
 media/
 *.pyc
-<<<<<<< HEAD
-=======
-database.db
-migrations/
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de

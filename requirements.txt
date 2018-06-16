@@ -1,24 +1,18 @@
 certifi==2018.4.16
 chardet==3.0.4
 defusedxml==0.5.0
+dj-database-url==0.5.0
 Django==1.11
-<<<<<<< HEAD
-django-bootstrap3==10.0.1
-django-bootstrap4==0.0.6
-idna==2.6
-oauthlib==2.1.0
-Pillow==5.1.0
-pkg-resources==0.0.0
-=======
 django-bootstrap-datepicker-plus==3.0.4
 django-bootstrap4==0.0.6
 django-extensions==2.0.7
+gunicorn==19.8.1
 idna==2.6
 oauthlib==2.1.0
 Pillow==5.1.0
->>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
 psycopg2-binary==2.7.4
 PyJWT==1.6.4
+python-decouple==3.1
 python3-openid==3.1.0
 pytz==2018.4
 requests==2.18.4
@@ -27,3 +21,4 @@ six==1.11.0
 social-auth-app-django==2.1.0
 social-auth-core==1.7.0
 urllib3==1.22
+whitenoise==3.3.1
