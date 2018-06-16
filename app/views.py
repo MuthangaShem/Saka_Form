@@ -8,8 +8,10 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .decorators import user_has_interests
 
 
+@user_has_interests
 def home(request):
     current_user = request.user
     if current_user.is_authenticated():
@@ -29,6 +31,7 @@ def interests(request):
 
 
 @login_required
+@user_has_interests
 def create_event(request):
 
     current_user = request.user
@@ -47,6 +50,7 @@ def create_event(request):
 
 
 @login_required
+@user_has_interests
 def manage_event(request):
 
     current_user = request.user
@@ -68,6 +72,7 @@ def manage_event(request):
 
 
 @login_required
+@user_has_interests
 def update_event(request, event_id):
 
     if request.method == 'POST':
@@ -112,11 +117,12 @@ def ajax_handle_user_categories(request):
     if request.method == "POST" and 'category_arr' in request.POST and request.is_ajax():
         selected_list = json.loads(request.POST.get('category_arr'))
         profile_instance.profile_interest.set(selected_list)
-        # return redirect(reverse('home'))
-        return render_to_response('ajax/searchresults.html')
+        return redirect(reverse('home'))
+        # return render_to_response('ajax/searchresults.html')
 
 
 @login_required
+@user_has_interests
 def profile(request):
 
     current_user = request.user
@@ -127,7 +133,7 @@ def profile(request):
     update_form = ProfileUpdateForm(instance=user)
 
     ProfileInlineFormset = inlineformset_factory(
-        User, Profile, fields=('profile_photo', 'profile_id',))
+        User, Profile, fields=('profile_interest', 'profile_location'))
     formset = ProfileInlineFormset(instance=user)
 
     if current_user.is_authenticated() and current_user.id == user.id:

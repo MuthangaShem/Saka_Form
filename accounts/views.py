@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView
 
@@ -14,6 +14,8 @@ from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
 from app.models import Profile
 from .forms import *
+from django.core.urlresolvers import reverse
+from app.decorators import user_has_interests
 
 
 class SignUp(CreateView):
@@ -23,6 +25,7 @@ class SignUp(CreateView):
 
 
 @login_required
+@user_has_interests
 def settings(request):
     current_user = request.user
     profile_details = User.objects.get(id=request.user.id)
@@ -47,12 +50,13 @@ def settings(request):
                 if formset.is_valid():
                     updated_user.save()
                     formset.save()
-                    return redirect(index)
+                    return redirect(reverse('home'))
 
     return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
 
 
 @login_required
+@user_has_interests
 def password(request):
     if request.user.has_usable_password():
         PasswordForm = PasswordChangeForm

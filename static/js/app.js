@@ -35,7 +35,7 @@ $(document).ready(function() {
   });
 
   // Event Accordion Click Functionality
-  $('#ev-accordion').each(function() {
+  $('.ev-accordion').each(function() {
     $(this).click(function(event) {
       event.preventDefault();
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
   });
 
   // Category Accordion Click Functionality
-  $('#cat-accordion').each(function() {
+  $('.cat-accordion').each(function() {
     $(this).click(function(event) {
       event.preventDefault();
 
@@ -92,7 +92,6 @@ $(document).ready(function() {
       });
 
       modal_ajax.done(function(data) {
-        console.log(data)
         $("div.update-e").find('input[type=hidden]').after(data);
       });
 

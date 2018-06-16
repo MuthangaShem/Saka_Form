@@ -4,6 +4,14 @@
 
 {% block content %}
 	{{ block.super }}
+	{% for message in messages %}
+		<div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ message }}
+		</div>
+	{% endfor %}
 	<!-- ACCORDION -->
 	{% if categories|length > 0 %}
 		<div id="accordion">
@@ -19,9 +27,9 @@
 					{% for category in categories %}
 
 						<div class="card-body">
-							{% if category.event_set.all|length > 0 %}
-								<a href="" data-catid="{{ category.id }}" id="cat-accordion">{{ category.category_name|capfirst }}</a>
-							{% endif %}
+
+								<a href="" data-catid="{{ category.id }}" class="cat-accordion">{{ category.category_name|capfirst }}</a>
+
 						</div>
 
 					{% endfor %}
@@ -44,10 +52,8 @@
 					{% for event in event_types %}
 
 						<div class="card-body">
-							{% if event.event_set.all|length > 0 %}
-								<a href="" data-evid="{{ event.id }}" id="ev-accordion">{{event.type_name|capfirst }}</a>
-							{% endif %}
-						</div>
+								<a href="" data-evid="{{ event.id }}" class="ev-accordion">{{event.type_name|capfirst }}</a>
+							</div>
 
 					{% endfor %}
 				</div>
