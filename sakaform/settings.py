@@ -24,8 +24,8 @@ LOGIN_URL = ('accounts/login')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'accounts/login'
 
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/signup/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
