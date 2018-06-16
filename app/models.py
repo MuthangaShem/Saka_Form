@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import RegexValidator
-# from location_field.models.plain import PlainLocationField
 
 
 class Category(models.Model):
@@ -37,7 +36,8 @@ class Profile(models.Model):
     """
     profile_owner = models.OneToOneField(User)
     profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
-    profile_name = models.CharField(max_length=80)
+    profile_name = models.CharField(max_length=80, blank=True, null=True)
+    profile_location = models.CharField(max_length=254, null=True)
 
     def __str__(self):
         return self.profile_owner.username
@@ -45,8 +45,9 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
+    u_location = getattr(instance, '_location', None)
     if created:
-        Profile.objects.create(profile_owner=instance)
+        Profile.objects.create(profile_owner=instance, profile_location=u_location)
         instance.profile.save()
 
 
@@ -69,7 +70,7 @@ class Event(models.Model):
                                              ),
                                          ])
     event_date = models.DateTimeField(null=True, blank=True)
-    event_created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
+    event_created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.event_title
