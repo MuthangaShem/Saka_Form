@@ -1,20 +1,26 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import Event_Creation
 from .models import *
 from django.db.models import Q
+from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 
-# @login_required
 def home(request):
+
     categories = Category.objects.all()
+    event_accordion = EventType.objects.all()
     events = Event.objects.all()
-    return render(request, 'index.html', {'events': events, 'categories': categories})
+    return render(request, 'index.html', {'events': events, 'event_types': event_accordion, 'categories': categories})
+
 
 def interests(request):
+
     interests = Category.objects.all()
-    return render(request, 'interests.html', {'interests':interests})
+    return render(request, 'interests.html', {'interests': interests})
 
 
 @login_required
@@ -35,16 +41,67 @@ def create_event(request):
     return render(request, 'create_event.html', {'form': form})
 
 
-def search_event(request):
+@login_required
+def manage_event(request):
+
+    current_user = request.user
+    user_events = current_user.profile.event_set.all()
+
+    form = Event_Creation()
+
+    if request.method == "GET" and 'event_id' in request.GET and request.is_ajax():
+        event_pk = request.GET.get('event_id')
+        found_event = Event.objects.get(id=event_pk)
+
+        update_form = Event_Creation(initial={'event_title': found_event.event_title, 'event_image': found_event.event_image,
+                                              'event_location': found_event.event_location, 'event_category': found_event.event_category,
+                                              'event_description': found_event.event_description, 'number_of_tickets': found_event.number_of_tickets, 'event_type': found_event.event_type, 'event_date': found_event.event_date})
+
+        return render_to_response('ajax/update_modal.html', {'form': update_form})
+
+    return render(request, 'manage_event.html', {'events': user_events})
+
+
+@login_required
+def update_event(request, event_id):
+
+    if request.method == 'POST':
+        instance = get_object_or_404(Event, id=event_id)
+        form = Event_Creation(request.POST or None, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Event updated successfully')
+    return redirect(reverse('event:manage_event'))
+
+
+def ajax_search_event(request):
+
     if request.method == 'POST' and request.is_ajax():
         search_term = request.POST.get('search-term')
         results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
             event_location__icontains=search_term)).all()
-    return render_to_response('ajax/searchresults.html', {"results": results})
+    return render_to_response('ajax/searchresults.html', {"events": results})
+
+
+@csrf_exempt
+def ajax_accordion_redirect(request):
+
+    if request.method == "POST" and 'event_pk' in request.POST and request.is_ajax():
+        event_pk = request.POST['event_pk']
+        found_event = EventType.objects.get(id=event_pk)
+        results = found_event.event_set.all()
+        return render_to_response('ajax/searchresults.html', {"events": results})
+
+    if request.method == "POST" and 'category_pk' in request.POST and request.is_ajax():
+        category_pk = request.POST['category_pk']
+        found_category = Category.objects.get(id=category_pk)
+        results = found_category.event_set.all()
+        return render_to_response('ajax/searchresults.html', {"events": results})
 
 
 @login_required
 def profile(request):
+
     current_user = request.user
     profile_details = User.objects.get(id=request.user.id)
 
@@ -68,6 +125,6 @@ def profile(request):
                 if formset.is_valid():
                     updated_user.save()
                     formset.save()
-                    return redirect(index)
+                    return redirect(reverse('home'))
 
     return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})

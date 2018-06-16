@@ -32,7 +32,7 @@
         <h6 style="color: orange">Logged in as
           {{user.username|title}}
         </h6>
-        
+
         <div class="dropdown show">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Events
@@ -40,7 +40,9 @@
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
-            <a class="dropdown-item" href="">Manage Event(s)</a>
+            {% if user.profile.event_set.all %}
+            <a class="dropdown-item" href="{% url 'event:manage_event' %}">Manage Event(s)</a>
+            {% endif %}
           </div>
         </div>
 
@@ -94,12 +96,10 @@
 
     {% block content %}
 
-
+      
     {% endblock %}
 
     {% block scripts %}
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU&libraries=places&callback=initMap" async defer></script> -->
-    <script>  
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

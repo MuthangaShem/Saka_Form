@@ -12,9 +12,13 @@ class Category(models.Model):
     """
     category_name = models.CharField(max_length=60)
     category_description = models.TextField(null=True)
+    category_image = models.ImageField(upload_to='category-images')
 
     def __str__(self):
         return self.category_name
+
+    class Meta:
+        verbose_name_plural = 'categories'
 
     def save_category(self):
         self.save()
@@ -32,7 +36,7 @@ class Profile(models.Model):
     Initializing Profile Model
     """
     profile_owner = models.OneToOneField(User)
-    profile_interest = models.ForeignKey('Category', related_name='interests', null=True)
+    profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80)
 
     def __str__(self):
@@ -53,14 +57,14 @@ class Event(models.Model):
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
-    event_type = models.CharField(max_length=60, blank=True, null=True)
-    event_category = models.ForeignKey('Category', null=True, blank=True)
+    event_type = models.ForeignKey('EventType')
+    event_category = models.ForeignKey('Category')
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
     number_of_tickets = models.CharField(max_length=8,
                                          validators=[
                                              RegexValidator(
-                                                 regex=r'^(\d{1,8})$',
+                                                 regex=r'^(\d{1,5})$',
                                                  message='Please enter a valid ticket number'
                                              ),
                                          ])
@@ -78,3 +82,13 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['-event_created_on']
+
+
+class EventType(models.Model):
+    """
+    Initializing EventType Model
+    """
+    type_name = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.type_name
