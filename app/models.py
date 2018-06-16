@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import RegexValidator
 
+# from location_field.models.plain import PlainLocationField
+
 
 class Category(models.Model):
     """
@@ -55,6 +57,7 @@ class Event(models.Model):
     """
     Initializing Event Model
     """
+
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)

@@ -19,59 +19,66 @@ from app.decorators import user_has_interests
 
 
 class SignUp(CreateView):
-    form_class = UserSignUpForm
-    success_url = reverse_lazy('login')
-    template_name = 'accounts/signup.html'
+   form_class = UserSignUpForm
+   success_url = reverse_lazy('login')
+   template_name = 'accounts/signup.html'
 
 
 @login_required
 @user_has_interests
 def settings(request):
-    current_user = request.user
-    profile_details = User.objects.get(id=request.user.id)
+   current_user = request.user
+   profile_details = User.objects.get(id=request.user.id)
 
-    user = User.objects.get(id=current_user.id)
+   user = User.objects.get(id=current_user.id)
 
-    update_form = ProfileUpdateForm(instance=user)
+   update_form = ProfileUpdateForm(instance=user)
 
-    ProfileInlineFormset = inlineformset_factory(
-        User, Profile, fields=('profile_interest', 'profile_name',))
-    formset = ProfileInlineFormset(instance=user)
+   ProfileInlineFormset = inlineformset_factory(
+       User, Profile, fields=('profile_interest', 'profile_name',))
+   formset = ProfileInlineFormset(instance=user)
 
-    if current_user.is_authenticated() and current_user.id == user.id:
-        if request.method == "POST":
-            update_form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
-            formset = ProfileInlineFormset(request.POST, request.FILES, instance=user)
+   if current_user.is_authenticated() and current_user.id == user.id:
+       if request.method == "POST":
+           update_form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
+           formset = ProfileInlineFormset(request.POST, request.FILES, instance=user)
 
-            if update_form.is_valid():
-                updated_user = update_form.save(commit=False)
-                formset = ProfileInlineFormset(request.POST, request.FILES, instance=current_user)
+           if update_form.is_valid():
+               updated_user = update_form.save(commit=False)
+               formset = ProfileInlineFormset(request.POST, request.FILES, instance=current_user)
 
+<<<<<<< HEAD
                 if formset.is_valid():
                     updated_user.save()
                     formset.save()
                     return redirect(reverse('home'))
+=======
+               if formset.is_valid():
+                   updated_user.save()
+                   formset.save()
+                   return redirect(index)
+>>>>>>> fc9b3daa2a2513bd57b22e1742f144bf7466e7d2
 
-    return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
+   return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
 
 
 @login_required
 @user_has_interests
 def password(request):
-    if request.user.has_usable_password():
-        PasswordForm = PasswordChangeForm
-    else:
-        PasswordForm = AdminPasswordChangeForm
+   if request.user.has_usable_password():
+       PasswordForm = PasswordChangeForm
+   else:
+       PasswordForm = AdminPasswordChangeForm
 
-    if request.method == 'POST':
-        form = PasswordForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('password')
-        else:
-            messages.error(request, 'Please correct the error(s) below.')
-    else:
-        form = PasswordForm(request.user)
-    return render(request, 'accounts/password.html', {'form': form})
+   if request.method == 'POST':
+       form = PasswordForm(request.user, request.POST)
+       if form.is_valid():
+           form.save()
+           update_session_auth_hash(request, form.user)
+           messages.success(request, 'Your password was successfully updated!')
+           return redirect('password')
+       else:
+           messages.error(request, 'Please correct the error(s) below.')
+   else:
+       form = PasswordForm(request.user)
+   return render(request, 'accounts/password.html', {'form': form})

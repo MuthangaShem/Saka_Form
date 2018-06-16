@@ -2,5 +2,3 @@ virtual/
 .env
 media/
 *.pyc
-database.db
-migrations/
