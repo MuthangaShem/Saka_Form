@@ -80,25 +80,17 @@
 						<li class="date">{{event.event_date}}</li>
 						<li class="tags">
 							<ul>
-								<li>
-									<a href="#">Learn</a>
-								</li>
-								<li>
-									<a href="#">Code</a>
-								</li>
-								<li>
-									<a href="#">HTML</a>
-								</li>
-								<li>
-									<a href="#">CSS</a>
-								</li>
+
 							</ul>
 						</li>
 					</ul>
 					<div class="description">
 						<h1>{{event.event_title}}</h1>
 						<h2>{{event.event_location}}</h2>
-						<p class="summary">{{event.event_description}}</p>
+						<br class="summary">{{event.event_description}}<br>
+						{{ event.get_event_status_display }}
+						{% ifequal event.get_event_status_display "PAID"%}-- KES <span style="color:green;">{{event.event_charges}}</span>
+						{% endifequal %}
 						<a href="#" class="btn">Register For Event</a>
 					</div>
 				</div>

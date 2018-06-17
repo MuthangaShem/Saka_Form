@@ -7,12 +7,11 @@ from django.contrib.auth.models import User
 class Event_Creation(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ('event_title',
-                  'event_image',
-                  'event_location',
-                  'event_category',
-                  'event_description',
-                  'number_of_tickets',
-                  'event_type',
-                  'event_date',
-                  )
+        fields = ('event_title', 'event_image', 'event_location', 'event_category', 'event_status',
+                  'event_charges', 'event_description', 'number_of_tickets', 'event_type', 'event_date',)
+
+    def __init__(self, data=None, *args, **kwargs):
+        super().__init__(data, *args, **kwargs)
+        self.fields['event_charges'].required = False
+        if data and data.get('event_status', None) == 'P':
+            self.fields['event_charges'].required = True
