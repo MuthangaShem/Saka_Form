@@ -1,3 +1,8 @@
 {% load bootstrap4 %}
+{% if event_name %}
+<h3 data-id="{{ event_id }}">PAYMENT FOR {{event_name}}</h3>
+<hr>
+<p>
+{% endif %}
 
 {% bootstrap_form form %}

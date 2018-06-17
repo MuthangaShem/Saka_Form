@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   // Event Location Google maps suggestion
   $("input#id_location").geocomplete();
   $("input#id_event_location").geocomplete();
@@ -99,6 +98,36 @@ $(document).ready(function() {
 
   });
 
+  //Ensure forms are removed in modal
+  $("#editeventmodal").on("hidden.bs.modal", function () {
+    location.reload()
+});
+  $("#paymentmodal").on("hidden.bs.modal", function () {
+    location.reload()
+});
+
+  // Modal Payment Form Details Update
+  $("a#trigger-payment-modal").each(function() {
+    $(this).click(function() {
+      let event_id = $(this).data('href');
+
+      let modal_ajax = $.ajax({
+        url: '/event/manage_event/',
+        type: 'GET',
+        data: {
+          'e_id': event_id
+        },
+      });
+
+      modal_ajax.done(function(data) {
+        $("div#update-e").find('input[type=hidden]').after(data);
+      });
+
+    });
+
+  });
+
+
   // interests click handler
   var checkedCounter = 0;
   $("div[class='zoomimage']").each(function() {
@@ -148,6 +177,34 @@ $("button#done").click(function(){
   });
 
 });
+
+// Update Charges on Modal
+$("body").on('keyup', "#id_number_of_tickets",function(){
+
+  let $eventId =$("#booking-form").find('h3').data('id');
+  let $url = $("#booking-form").data('cost-url');
+  let $input = $("#id_number_of_tickets").val();
+
+
+  if($input>=1){
+  let ajax4 = $.ajax({
+    url: $url,
+    type: 'POST',
+    data: {
+      'the_event':$eventId,
+      't_num':$input
+    }
+  });
+
+  ajax4.done(function(data) {
+    $('#cost').empty().html(data);
+  });
+}else{
+    $('#cost').empty();
+}
+
+});
+
 
 });
 

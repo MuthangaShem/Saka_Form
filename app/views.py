@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import Event_Creation
+from .forms import *
 from .models import *
 from django.db.models import Q
 from django.contrib import messages
@@ -17,6 +17,7 @@ def home(request):
 
     current_user = request.user
     dt_now = str(now())
+
     if current_user.is_authenticated():
         user_interests = Profile.objects.get(profile_owner=current_user).profile_interest.all()
         events = Event.objects.filter(event_category__in=user_interests,
@@ -73,6 +74,13 @@ def manage_event(request):
 
         return render_to_response('ajax/update_modal.html', {'form': update_form})
 
+    if request.method == "GET" and 'e_id' in request.GET and request.is_ajax():
+        event_pk = request.GET.get('e_id')
+        found_event = Event.objects.get(id=event_pk)
+
+        form = PaymentGateway()
+        return render_to_response('ajax/update_modal.html', {'form': form, 'event_name': found_event.event_title, 'event_id': found_event.id})
+
     return render(request, 'manage_event.html', {'events': user_events})
 
 
@@ -87,6 +95,18 @@ def update_event(request, event_id):
             form.save()
             messages.success(request, 'Event updated successfully')
     return redirect(reverse('event:manage_event'))
+
+
+def register_event(request, event_id):
+
+    this_event = Event.objects.get(id=event_id)
+
+    if this_event.event_status == 'P':
+        print(this_event.event_charges)
+
+    if this_event.event_status == 'F':
+        print(this_event.event_charges)
+    return redirect('home')
 
 
 def ajax_search_event(request):
@@ -123,6 +143,21 @@ def ajax_handle_user_categories(request):
         selected_list = json.loads(request.POST.get('category_arr'))
         profile_instance.profile_interest.set(selected_list)
         return redirect(reverse('home'))
+
+
+@csrf_exempt
+def ajax_calculate_ticket_cost(request):
+
+    if request.method == "POST" and 'the_event' in request.POST and request.is_ajax():
+
+        event_id = request.POST['the_event']
+        ticket_number = request.POST['t_num']
+
+        the_event = Event.objects.get(id=event_id)
+        one_ticket = the_event.event_charges
+
+        charges = int(one_ticket) * int(ticket_number)
+        return render_to_response('cost.html', {'total': charges})
 
 
 @login_required
