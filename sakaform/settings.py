@@ -26,34 +26,34 @@ LOGIN_URL = ('accounts/login')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'accounts/login'
 
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/signup/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%4l)p3$wm4qikr#&^64uiw487x&0drlz*+exd5x7v!excvxxgi'
+SECRET_KEY = config('SECRET_KEY')
 
 # github auth
-SOCIAL_AUTH_GITHUB_KEY = 'a7044dfaf7bc33816cba'
-SOCIAL_AUTH_GITHUB_SECRET = '9805efb4bae009b15354e29fa458c68404b36a5d'
+SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
 
 # twitter auth
-SOCIAL_AUTH_TWITTER_KEY = '9TD12xahCWCDdyLzpmw61GSM9'
-SOCIAL_AUTH_TWITTER_SECRET = 'QyKXLkkxvAAylfguI6RtPsmi2d5Q1vniPgqR0ZxMVMbdsRxuEk'
+SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET')
 
 # social auth
-SOCIAL_AUTH_FACEBOOK_KEY = '385298425305419'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'd431451f2f6575be03d1d32038deb95b'
+SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 # social google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '486763413473-2gigi6rn844a1dimnrj31mocdquouefj.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xBnhSUy67A73FAGvDNqbd8wH'
-
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 ALLOWED_HOSTS = ['*']
@@ -169,20 +169,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
-
-
-
-# authentication backends
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.twitter.TwitterOAuth',  # for Twitter authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId', # for Google authentication
-    'social_core.backends.google.GoogleOAuth2', # for Google authentication
-
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 
 STATIC_URL = '/static/'

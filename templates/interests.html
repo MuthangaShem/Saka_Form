@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+{% for message in messages %}
+	<div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		{{ message }}
+	</div>
+{% endfor %}
+<div class="container-fluid" >
+	<h3 style="font-family: Roboto;">Please choose at least 3 topics you are interested in...</h3>
+	<div class="row" style="border:0;height: 70vh">
+{% for interest in interests %}
+		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="border:0;padding: 0;  ">
+			<div class="zoomimage" >
+				<input data-id="{{ interest.id }}" type="checkbox" class="check" />
+				<img class="interests" src="{{ interest.category_image.url }}">
+				<div class="text-wrapper">
+	            	<h5 class="question">{{ interest.category_name }}
+								<br><small>{{ interest.category_description }}</small></h5>
+	            	<span class="fa fa_plus" style="font-size: 30px;color:orange"></span>
+	            	<h4 class="answer"><i style="color:green;font-size:180%;" class="fas fa-check"></i></h4>
+	        	</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+<button id="done" disabled="disabled" class="btn btn-lg btn-primary" style="width: 100%; position: fixed;margin bottom: 10 ">Done</button>
+
+
+</div>
+{% endblock%}

@@ -16,6 +16,7 @@ class Event_Creation(forms.ModelForm):
                   'event_description',
                   'number_of_tickets',
                   'event_type',
+<<<<<<< HEAD
                   ]
         widgets = {
                   'event_date': DateInput(),
@@ -32,3 +33,7 @@ class Event_Creation(forms.ModelForm):
         #         }
         #     ),
         # }
+=======
+                  'event_date',
+                  )
+>>>>>>> ba299aa0c502e58a7c53e3bf18136cf3ad2ccf23

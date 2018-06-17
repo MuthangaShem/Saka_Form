@@ -1,0 +1,53 @@
+{% load static %}
+<!--PEN CODE-->
+{% for event in events%}
+
+<div class="container" id="content">
+  <div class="blog-card">
+    {% if event.event_image %}
+    <div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+    {% else %}
+    <div class="photo photo1"><img src="{% static 'images/no-event.jpg' %}" class="img-responsive myImg" alt=""></div>
+    {% endif %}
+    <ul class="details">
+      <li class="author">{{event.event_owner}}</li>
+      <li class="date">{{event.event_date}}</li>
+      <li class="tags">
+        <ul>
+          <li>
+            <a href="#">Learn</a>
+          </li>
+          <li>
+            <a href="#">Code</a>
+          </li>
+          <li>
+            <a href="#">HTML</a>
+          </li>
+          <li>
+            <a href="#">CSS</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="description">
+      <h1>{{event.event_title}}</h1>
+      <h2>{{event.event_location}}</h2>
+      <p class="summary">{{event.event_description}}</p>
+      <a href="#">Read More</a>
+    </div>
+  </div>
+</div>
+{% empty %}
+<div class="container" id="content">
+<div class="blog-card">
+
+  <div class="description">
+    <h1 class="card-body">NO EVENTS FOUND BASED ON YOUR SEARCH</h1>
+
+  </div>
+</div>
+</div>
+
+{% endfor %}
+
+<!--END PEN CODE -->

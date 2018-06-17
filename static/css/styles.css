@@ -74,9 +74,73 @@ body {
   margin: 2rem;
   padding-top: 60px;
 }
+
 label[for=id_profile-0-DELETE], #id_profile-0-DELETE {
   display: none !important;
 }
+
+/*  */
+
+.caption-style-1 {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.caption-style-1 li {
+  float: left;
+  padding: 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.caption-style-1 li:hover .caption {
+  opacity: 1;
+}
+
+.caption-style-1 img {
+  margin: 0px;
+  padding: 0px;
+  float: left;
+  z-index: 4;
+}
+
+.caption-style-1 .caption {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: all 0.45s ease-in-out;
+  -moz-transition: all 0.45s ease-in-out;
+  -o-transition: all 0.45s ease-in-out;
+  -ms-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+}
+
+.caption-style-1 .blur {
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 300px;
+  width: 400px;
+  z-index: 5;
+  position: absolute;
+}
+
+.caption-style-1 .caption-text h1 {
+  text-transform: uppercase;
+  font-size: 24px;
+}
+
+.caption-style-1 .caption-text {
+  z-index: 10;
+  color: #fff;
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  top: 100px;
+}
+
+/*  */
+
 /* ACCORDION */
 
 .mb-0>a {
@@ -323,7 +387,8 @@ label[for=id_profile-0-DELETE], #id_profile-0-DELETE {
 }
 
 .blog-card .photo.photo1 {
-  background: url("http://i62.tinypic.com/34oq4o0.jpg") center no-repeat;
+  /*  background: url("http://i62.tinypic.com/34oq4o0.jpg") center no-repeat;
+*/
   background-size: cover;
 }
 
@@ -509,9 +574,9 @@ label[for=id_profile-0-DELETE], #id_profile-0-DELETE {
   }
 }
 
-
-  /* Always set the map height explicitly to define the size of the div
+/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
+<<<<<<< HEAD
       #map {
         height: 100%;
       }
@@ -562,3 +627,122 @@ label[for=id_profile-0-DELETE], #id_profile-0-DELETE {
         font-weight: 300;
       }
 >>>>>>> 0dc7e00b9902c6ec5425bace5c6e33b3e64bd9de
+=======
+
+#map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#origin-input, #destination-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+#origin-input:focus, #destination-input:focus {
+  border-color: #4d90fe;
+}
+
+#mode-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  margin-left: 12px;
+  padding: 5px 11px 0px 11px;
+}
+
+#mode-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+/* interests styling */
+
+.zoomimage {
+  overflow: hidden;
+  text-align: center;
+  min-width: 100%;
+  min-height: 100%;
+  cursor: pointer;
+}
+
+.zoomimage>img {
+  max-width: 100%;
+  max-height: 100%;
+  transition: 0.75s;
+  opacity: 0.5;
+  filter: alpha(opacity=40);
+}
+
+.zoomimage:hover img {
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 1;
+  filter: alpha(opacity=40);
+  transform: scale(1.2);
+}
+.zoomimage>input[type=checkbox]{
+  opacity: 0;
+  z-index: -1;
+}
+.text-wrapper {
+  width: 100%;
+  position: relative;
+  margin-top: -50%
+}
+
+.text-wrapper h5 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'Font Awesome\ 5 Free';
+}
+
+.col-lg-3 .col-md-3 .col-sm-4 .col-xs-6 {
+  height: 100%
+}
+
+.answer {
+  display: none;
+}
+
+.fa_plus:before {
+  content: "+"
+}
+
+.interestsActive {
+  -ms-transform: scale(1.1);
+  /* IE 9 */
+  -webkit-transform: scale(1.1);
+  /* Safari 3-8 */
+  transform: scale(1.1);
+}
+
+.fa_minus:before {
+  content: "-"
+}
+>>>>>>> ba299aa0c502e58a7c53e3bf18136cf3ad2ccf23
