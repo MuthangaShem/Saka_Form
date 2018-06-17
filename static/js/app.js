@@ -98,6 +98,27 @@ $(document).ready(function() {
     });
 
   });
+  // Modal Payment Form Details Update
+  // $("a#trigger-payment-modal").each(function() {
+  //   $(this).click(function() {
+  //     let event_id = $(this).data('href');
+  //
+  //     let modal_ajax = $.ajax({
+  //       url: '/event/manage_event/',
+  //       type: 'GET',
+  //       data: {
+  //         'event_id': event_id
+  //       },
+  //     });
+  //
+  //     modal_ajax.done(function(data) {
+  //       $("div.update-e").find('input[type=hidden]').after(data);
+  //     });
+  //
+  //   });
+  //
+  // });
+
 
   // interests click handler
   var checkedCounter = 0;
@@ -146,63 +167,10 @@ $("button#done").click(function(){
   ajax4.done(function(data) {
     window.location.href = "/";
   });
-​
- });
-​
- // interests click handler
- $("div[class='zoomimage']").each(function() {
-  let $this = $(this)
-​
-  $this.click(function() {
-   $this.find('.answer').toggle(300);
-   $this.find('.fa').toggleClass('fa_plus fa_minus');
-​
-   if ($this.find('input:checkbox[id=check]').is(":checked")) {
-    $this.find('input:checkbox[id=check]').attr("checked", false);
-   } else {
-    $this.find('input:checkbox[id=check]').attr("checked", true);
-   }
-​
-  })
-​
- });
-​
- // Get All Checked Categories Handler
-$("button#done").click(function(){
- var checkedCat = [];
- $('input:checkbox:checked').each(function () {
-    let $ThisVal = (this.checked ? $(this).data('id') : "");
-    checkedCat.push($ThisVal);
- });
-​
- let ajax4 = $.ajax({
-  url: "ajax/handle/",
-  type: 'POST',
-  data: {
-   'category_arr': JSON.stringify(checkedCat)
-  }
- });
-​
- ajax4.done(function(data) {
-  console.log("hoho")
- });
-​
+
 });
 
 });
-​
-// mapping function
-function initMap() {
- var map = new google.maps.Map(document.getElementById('map'), {
-  mapTypeControl: false,
-  center: {
-   lat: -1.28333,
-   lng: 36.81667
-  },
-  zoom: 10
- });
-​
- new AutocompleteDirectionsHandler(map);
 
 // mapping function
 function initMap() {
@@ -217,92 +185,92 @@ function initMap() {
 
   new AutocompleteDirectionsHandler(map);
 }
-​
+
 /**
  * @constructor
  */
 function AutocompleteDirectionsHandler(map) {
- this.map = map;
- this.originPlaceId = null;
- this.destinationPlaceId = null;
- this.travelMode = 'WALKING';
- var originInput = document.getElementById('origin-input');
- var destinationInput = document.getElementById('destination-input');
- var modeSelector = document.getElementById('mode-selector');
- this.directionsService = new google.maps.DirectionsService;
- this.directionsDisplay = new google.maps.DirectionsRenderer;
- this.directionsDisplay.setMap(map);
-​
- var originAutocomplete = new google.maps.places.Autocomplete(
-  originInput, {
-   placeIdOnly: true
-  });
- var destinationAutocomplete = new google.maps.places.Autocomplete(
-  destinationInput, {
-   placeIdOnly: true
-  });
-​
- this.setupClickListener('changemode-walking', 'WALKING');
- this.setupClickListener('changemode-transit', 'TRANSIT');
- this.setupClickListener('changemode-driving', 'DRIVING');
-​
- this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
- this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-​
- this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
- this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
- this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'WALKING';
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+  var modeSelector = document.getElementById('mode-selector');
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
+
+  var originAutocomplete = new google.maps.places.Autocomplete(
+    originInput, {
+      placeIdOnly: true
+    });
+  var destinationAutocomplete = new google.maps.places.Autocomplete(
+    destinationInput, {
+      placeIdOnly: true
+    });
+
+  this.setupClickListener('changemode-walking', 'WALKING');
+  this.setupClickListener('changemode-transit', 'TRANSIT');
+  this.setupClickListener('changemode-driving', 'DRIVING');
+
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
 }
-​
+
 // Sets a listener on a radio button to change the filter type on Places
 // Autocomplete.
 AutocompleteDirectionsHandler.prototype.setupClickListener = function(id, mode) {
- var radioButton = document.getElementById(id);
- var me = this;
- radioButton.addEventListener('click', function() {
-  me.travelMode = mode;
-  me.route();
- });
+  var radioButton = document.getElementById(id);
+  var me = this;
+  radioButton.addEventListener('click', function() {
+    me.travelMode = mode;
+    me.route();
+  });
 };
-​
+
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
- var me = this;
- autocomplete.bindTo('bounds', this.map);
- autocomplete.addListener('place_changed', function() {
-  var place = autocomplete.getPlace();
-  if (!place.place_id) {
-   window.alert("Please select an option from the dropdown list.");
-   return;
-  }
-  if (mode === 'ORIG') {
-   me.originPlaceId = place.place_id;
-  } else {
-   me.destinationPlaceId = place.place_id;
-  }
-  me.route();
- });
-​
+  var me = this;
+  autocomplete.bindTo('bounds', this.map);
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.place_id) {
+      window.alert("Please select an option from the dropdown list.");
+      return;
+    }
+    if (mode === 'ORIG') {
+      me.originPlaceId = place.place_id;
+    } else {
+      me.destinationPlaceId = place.place_id;
+    }
+    me.route();
+  });
+
 };
-​
+
 AutocompleteDirectionsHandler.prototype.route = function() {
- if (!this.originPlaceId || !this.destinationPlaceId) {
-  return;
- }
- var me = this;
-​
- this.directionsService.route({
-  origin: {
-   'placeId': this.originPlaceId
-  },
-  destination: {
-   'placeId': this.destinationPlaceId
-  },
-  travelMode: this.travelMode
- }, function(response, status) {
-  if (status === 'OK') {
-   me.directionsDisplay.setDirections(response);
-  } else {
-   window.alert('Directions request failed due to ' + status);
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
   }
- });
+  var me = this;
+
+  this.directionsService.route({
+    origin: {
+      'placeId': this.originPlaceId
+    },
+    destination: {
+      'placeId': this.destinationPlaceId
+    },
+    travelMode: this.travelMode
+  }, function(response, status) {
+    if (status === 'OK') {
+      me.directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
 };
