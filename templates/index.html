@@ -83,7 +83,6 @@
 						<li class="author">{{event.event_owner}}</li>
 						<li class="date">{{event.event_date}}</li>
 						<li class="tags">
-
 							<ul>
 								<li>
 									<a href="#">{{ event.event_category }}</a>
@@ -96,6 +95,10 @@
 						<h2>{{event.event_location}}</h2>
 						<p class="summary">{{event.event_description}}</p>
 						<a href="#" >Register</a>
+						{{ event.get_event_status_display }}
+						{% ifequal event.get_event_status_display "PAID"%}-- KES 
+						<span style="color:green;">{{event.event_charges}}</span>
+						{% endifequal %}
 					</div>
 				</div>
 			{% empty %}

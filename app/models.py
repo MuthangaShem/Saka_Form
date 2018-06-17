@@ -57,21 +57,22 @@ class Event(models.Model):
     """
     Initializing Event Model
     """
-
+    EVENT_CHOICES = (
+        ('F', 'FREE'),
+        ('P', 'PAID'),
+    )
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
     event_type = models.ForeignKey('EventType')
     event_category = models.ForeignKey('Category')
+    event_status = models.CharField(max_length=2, choices=EVENT_CHOICES)
+    event_charges = models.CharField(max_length=8, null=True, validators=[RegexValidator(
+        regex=r'^(\d{1,5})$', message='Enter a valid amount'), ])
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
-    number_of_tickets = models.CharField(max_length=8,
-                                         validators=[
-                                             RegexValidator(
-                                                 regex=r'^(\d{1,5})$',
-                                                 message='Please enter a valid ticket number'
-                                             ),
-                                         ])
+    number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
+        regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
     event_date = models.DateTimeField(null=True, blank=True)
     event_created_on = models.DateTimeField(auto_now_add=True)
 

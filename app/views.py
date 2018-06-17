@@ -9,16 +9,20 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .decorators import user_has_interests
+from django.utils.timezone import now
 
 
 @user_has_interests
 def home(request):
+
     current_user = request.user
+    dt_now = str(now())
     if current_user.is_authenticated():
         user_interests = Profile.objects.get(profile_owner=current_user).profile_interest.all()
-        events = Event.objects.filter(event_category__in=user_interests).all()
+        events = Event.objects.filter(event_category__in=user_interests,
+                                      event_date__gt=dt_now).all()
     if current_user.is_anonymous():
-        events = Event.objects.all()
+        events = Event.objects.filter(event_date__gt=dt_now).all()
     categories = Category.objects.all()
     event_accordion = EventType.objects.all()
 
@@ -119,7 +123,6 @@ def ajax_handle_user_categories(request):
         selected_list = json.loads(request.POST.get('category_arr'))
         profile_instance.profile_interest.set(selected_list)
         return redirect(reverse('home'))
-        # return render_to_response('ajax/searchresults.html')
 
 
 @login_required
