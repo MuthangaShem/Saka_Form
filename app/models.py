@@ -66,7 +66,7 @@ class Event(models.Model):
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
     event_type = models.ForeignKey('EventType')
     event_category = models.ForeignKey('Category')
-    event_status = models.CharField(max_length=2, choices=EVENT_CHOICES)
+    event_status = models.CharField(max_length=2, choices=EVENT_CHOICES, null=True)
     event_charges = models.CharField(max_length=8, null=True, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid amount'), ])
     event_description = models.TextField()
