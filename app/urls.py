@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^ajax/calc/cost/', views.ajax_calculate_ticket_cost, name='calc_cost'),
     url(r'^ajax/search/', views.ajax_search_event, name='search_event'),
     url(r'^ajax/accordion/', views.ajax_accordion_redirect, name='process_accordion'),
+    url(r'^callback/$', views.africas_callback, name='africastalking_cal'),
 ]
 
 if settings.DEBUG:

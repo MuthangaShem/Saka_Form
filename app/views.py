@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, get_object_or_404
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import *
@@ -10,6 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .decorators import user_has_interests
 from django.utils.timezone import now
+from django.conf import settings
+from django.contrib import messages
+import africastalking
+
+
+africas_key = settings.AFRICAS_KEY
+africas_username = settings.AFRICAS_USERNAME
 
 
 @user_has_interests
@@ -101,12 +108,44 @@ def register_event(request, event_id):
 
     this_event = Event.objects.get(id=event_id)
 
-    if this_event.event_status == 'P':
-        print(this_event.event_charges)
+    form = PaymentGateway(request.POST or None, request.FILES)
 
-    if this_event.event_status == 'F':
-        print(this_event.event_charges)
+    if form.is_valid():
+        ticke = form.save(commit=False)
+        ticke.event_id = this_event
+        # ticke.save()
+
+        if this_event.event_status == 'P':
+            phone = '+254' + ''.join(list(form.cleaned_data['profile_phone'])[1:])
+            ticket_number = form.cleaned_data['number_of_tickets']
+
+            one_ticket = this_event.event_charges
+
+            charges = int(one_ticket) * int(ticket_number)
+
+            africastalking.initialize(username=africas_username, api_key=africas_key)
+            payment = africastalking.Payment
+
+            res = payment.mobile_checkout(product_name='BusinessAcc',
+                                          phone_number=phone, currency_code='KES', amount=charges)
+
+            messages.info(request, 'Please check your phone to confirm payment')
+
+        if this_event.event_status == 'F':
+            ticke.ticket_confirmed = True
+            ticke.save()
+            messages.info(request, 'Check in your Events section for a Ticket(s)')
+
     return redirect('home')
+
+
+@csrf_exempt
+def africas_callback(request):
+    callback = request.body
+    callback_json = json.loads(callback)
+    print(callback_json)
+
+    return HttpResponse(callback_json)
 
 
 def ajax_search_event(request):
@@ -156,7 +195,12 @@ def ajax_calculate_ticket_cost(request):
         the_event = Event.objects.get(id=event_id)
         one_ticket = the_event.event_charges
 
-        charges = int(one_ticket) * int(ticket_number)
+        if the_event.event_status == 'P':
+            charges = int(one_ticket) * int(ticket_number)
+
+        if the_event.event_status == 'F':
+            charges = 0
+
         return render_to_response('cost.html', {'total': charges})
 
 
