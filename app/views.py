@@ -119,7 +119,6 @@ def ajax_handle_user_categories(request):
         selected_list = json.loads(request.POST.get('category_arr'))
         profile_instance.profile_interest.set(selected_list)
         return redirect(reverse('home'))
-        # return render_to_response('ajax/searchresults.html')
 
 
 @login_required
