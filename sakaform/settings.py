@@ -34,6 +34,8 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+AFRICAS_KEY = config('AFRICAS_KEY')
+AFRICAS_USERNAME = config('AFRICAS_USERNAME')
 
 # github auth
 # SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')

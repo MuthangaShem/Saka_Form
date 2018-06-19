@@ -97,3 +97,17 @@ class EventType(models.Model):
 
     def __str__(self):
         return self.type_name
+
+
+class Ticket(models.Model):
+    """
+    Initializing Ticket Model
+    """
+    event_id = models.ForeignKey('Event')
+    profile_idf = models.CharField(max_length=8, verbose_name="Identification Number",
+                                   validators=[RegexValidator(regex=r'^(\d{7}|\d{8})$', message='ID number must be numeric and eight characters'), ])
+    profile_phone = models.CharField(max_length=15, validators=[RegexValidator(
+        regex=r'^(0+[7]{1}[0-9]{8})$', message='Incorrect Phone Number'), ], verbose_name='Phone Number')
+    number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
+        regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
+    ticket_confirmed = models.BooleanField(default=False)
