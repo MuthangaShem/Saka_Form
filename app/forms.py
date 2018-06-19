@@ -12,8 +12,8 @@ class Event_Creation(forms.ModelForm):
         fields = ('event_title', 'event_image', 'event_location', 'event_category', 'event_status',
                   'event_charges', 'event_description', 'number_of_tickets', 'event_type', 'event_date',)
         widgets = {
-                  'event_date': DateInput(),
-        }
+                  'event_date': DateInput()
+                  }
 
 
         def __init__(self, data=None, *args, **kwargs):

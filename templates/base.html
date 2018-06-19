@@ -8,72 +8,85 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://i.imgur.com/PbCNmPB.png" type="image/x-icon">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
     <title>Saka Form</title>
     {% block styles %}
       {% bootstrap_css %}
-      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
   </head>
 
-  <body style=" margin: 0;padding: 0;margin-top: 5%;height:100vh">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
-      <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
-        <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
-          <img src="https://i.imgur.com/PbCNmPB.png" width="30" height="30" class="d-inline-block align-top" alt="">
-          SakaForm
-        </a>
-      </div>
-      {% if user.is_authenticated %}
-        <h7 style="color: orange">Logged in as
-          {{user.username|title}}
-        </h7>
-
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Events
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
+  <body style=" margin: 0;padding: 0;">
+    <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-inverse ">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-3">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">SakaForm</a>
+        </div>
+    
+        <div class="collapse navbar-collapse" id="navbar-collapse-3">
+          <ul class="nav navbar-nav navbar-right">
+            
+              {% if user.is_authenticated %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">Search</a>
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1">Event</a>
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">{{user.username|title}}</a>
+              {% else %}
+              <a href="{% url 'accounts:signup' %}" class="btn-circle btn-primary navbar-btn">Sign Up</a>
+              <a href="{% url 'accounts:login' %}" class="btn-circle btn-primary navbar-btn">Login</a>
+              {% endif %}
+            </li>
+          </ul>
+          <ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse1">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'event:create_event' %}">Create Event</a></li>
             {% if user.profile.event_set.all %}
-            <a class="dropdown-item" href="{% url 'event:manage_event' %}">Manage Event(s)</a>
+            <li><a href="{% url 'event:manage_event' %}">Manage Event(s)</a></li>
+          </ul>
             {% endif %}
+          <ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
+            <li><a href="{% url 'accounts:logout' %}" class="btn-circle btn-danger navbar-btn">Logout</a></li>
+            <li><a href="{% url 'accounts:settings' %}">Profile Preferences</a></li>
+            <li><a href="{% url 'accounts:password' %}">Manage Password</a></li>
+          </ul>
+            {% endif %}
+          </ul>
+          <div class="collapse nav navbar-nav nav-collapse slide-down input-group" id="nav-collapse3">
+            <form id="custom-search-input">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
         </div>
-
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            profile
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'accounts:settings' %}">profile preferences</a>
-            <a class="dropdown-item" href="{% url 'accounts:password' %}">manage password</a>
-          </div>
-        </div>
-
-        <a href="{% url 'accounts:logout' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Logout</button>
-        </a>
-
-      {% else %}
-        <a href="{% url 'accounts:signup' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Sign Up</button>
-        </a>
-        <a href="{% url 'accounts:login' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Login</button>
-        </a>
-      {% endif %}
+      </div>
     </nav>
+    </div>
 
     <form id="custom-search-input">
       {% csrf_token %}
-      <div class="input-group col-md-6">
+      <div class="input-group">
         <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
         <span class="input-group-btn">
           <button class="btn btn-danger" type="button">
@@ -107,6 +120,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
       {% bootstrap_javascript %}
