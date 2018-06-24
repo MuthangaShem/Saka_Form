@@ -13,28 +13,30 @@ from django.utils.timezone import now
 from django.conf import settings
 from django.contrib import messages
 import africastalking
+import uuid
+from .email import send_ticket_email
 
 
 africas_key = settings.AFRICAS_KEY
 africas_username = settings.AFRICAS_USERNAME
+dt_now = str(now())
 
 
 @user_has_interests
 def home(request):
 
     current_user = request.user
-    dt_now = str(now())
 
     if current_user.is_authenticated():
         user_interests = Profile.objects.get(profile_owner=current_user).profile_interest.all()
         events = Event.objects.filter(event_category__in=user_interests,
                                       event_date__gt=dt_now).all()
+
     if current_user.is_anonymous():
         events = Event.objects.filter(event_date__gt=dt_now).all()
     categories = Category.objects.all()
-    event_accordion = EventType.objects.all()
 
-    return render(request, 'index.html', {'events': events, 'event_types': event_accordion, 'categories': categories})
+    return render(request, 'index.html', {'events': events, 'categories': categories})
 
 
 def interests(request):
@@ -56,6 +58,25 @@ def create_event(request):
             event = form.save(commit=False)
             event.event_owner = profile_instance
             event.save()
+
+            tic_num = form.cleaned_data['number_of_tickets']
+
+            existing_tickets = [num for sub in EventTicket.objects.values(
+                'event_ticket_no') for num in sub]
+
+            gen_tickets, start = [], 0
+
+            while start < int(tic_num):
+                random = uuid.uuid4().hex[:12].upper()
+
+                if random not in existing_tickets:
+                    gen_tickets.append(random)
+                    start += 1
+            g = gen_tickets
+
+            for item in g:
+                EventTicket.objects.bulk_create([EventTicket(event=event, event_ticket_no=item), ])
+
             return redirect('home')
     else:
         form = Event_Creation()
@@ -77,16 +98,16 @@ def manage_event(request):
 
         update_form = Event_Creation(initial={'event_title': found_event.event_title, 'event_image': found_event.event_image,
                                               'event_location': found_event.event_location, 'event_category': found_event.event_category,
-                                              'event_description': found_event.event_description, 'number_of_tickets': found_event.number_of_tickets, 'event_type': found_event.event_type, 'event_date': found_event.event_date})
+                                              'event_description': found_event.event_description, 'number_of_tickets': found_event.number_of_tickets, 'event_date': found_event.event_date})
 
-        return render_to_response('ajax/update_modal.html', {'form': update_form})
+        return render(request, 'ajax/update_event.html', {'form': update_form, 'event_id': found_event.id})
 
     if request.method == "GET" and 'e_id' in request.GET and request.is_ajax():
         event_pk = request.GET.get('e_id')
         found_event = Event.objects.get(id=event_pk)
 
         form = PaymentGateway()
-        return render_to_response('ajax/update_modal.html', {'form': form, 'event_name': found_event.event_title, 'event_id': found_event.id})
+        return render(request, 'ajax/update_modal.html', {'form': form, 'event_name': found_event.event_title, 'event_id': found_event.id})
 
     return render(request, 'manage_event.html', {'events': user_events})
 
@@ -104,7 +125,13 @@ def update_event(request, event_id):
     return redirect(reverse('event:manage_event'))
 
 
+@login_required
+@csrf_exempt
 def register_event(request, event_id):
+
+    current_user = request.user
+
+    profile_instance = Profile.objects.get(profile_owner=current_user)
 
     this_event = Event.objects.get(id=event_id)
 
@@ -112,18 +139,21 @@ def register_event(request, event_id):
 
     if form.is_valid():
         ticke = form.save(commit=False)
-        ticke.event_id = this_event
-        # ticke.save()
+        ticke.profile = profile_instance
+        ticke.event = this_event
+
+        ticket_number = form.cleaned_data['number_of_tickets']
 
         if this_event.event_status == 'P':
+
             phone = '+254' + ''.join(list(form.cleaned_data['profile_phone'])[1:])
-            ticket_number = form.cleaned_data['number_of_tickets']
 
-            one_ticket = this_event.event_charges
+            ticket_charge = this_event.event_charges
 
-            charges = int(one_ticket) * int(ticket_number)
+            charges = int(ticket_charge) * int(ticket_number)
 
             africastalking.initialize(username=africas_username, api_key=africas_key)
+
             payment = africastalking.Payment
 
             res = payment.mobile_checkout(product_name='BusinessAcc',
@@ -132,18 +162,36 @@ def register_event(request, event_id):
             messages.info(request, 'Please check your phone to confirm payment')
 
         if this_event.event_status == 'F':
+
+            m = EventTicket.objects.filter(event=this_event, event_ticket_taken=False).values(
+                'event_ticket_no')[:int(ticket_number)]
+
+            taken_tck = [tck for kct in m for tck in kct.values()]
+
+            tb = TicketBooking.objects.filter(event=this_event).first()
+
             ticke.ticket_confirmed = True
             ticke.save()
-            messages.info(request, 'Check in your Events section for a Ticket(s)')
+
+            EventTicket.objects.filter(event_ticket_no__in=taken_tck).update(
+                event_ticket_taken=True, event_booking=ticke)
+
+            data = TicketBooking.objects.filter(profile=profile_instance, event=this_event).all()
+            send_ticket_email(profile_instance.profile_owner.email, data)
+            messages.info(request, 'Check in your mail for Ticket(s)')
 
     return redirect('home')
 
 
+# https://www.entrepreneur.com/video/315293
 @csrf_exempt
 def africas_callback(request):
     callback = request.body
     callback_json = json.loads(callback)
     print(callback_json)
+    # if callback_json['status'] == "Success":
+    #
+    # if callback_json['status'] == "Failed":
 
     return HttpResponse(callback_json)
 
@@ -152,25 +200,22 @@ def ajax_search_event(request):
 
     if request.method == 'POST' and request.is_ajax():
         search_term = request.POST.get('search-term')
-        results = Event.objects.filter(Q(event_title__icontains=search_term) | Q(
-            event_location__icontains=search_term)).all()
-    return render_to_response('ajax/searchresults.html', {"events": results})
+
+        results = Event.objects.filter(Q(event_title__icontains=search_term, event_date__gt=dt_now) | Q(
+            event_location__icontains=search_term, event_date__gt=dt_now)).all()
+
+    return render(request, 'ajax/searchresults.html', {"events": results})
 
 
 @csrf_exempt
 def ajax_accordion_redirect(request):
 
-    if request.method == "POST" and 'event_pk' in request.POST and request.is_ajax():
-        event_pk = request.POST['event_pk']
-        found_event = EventType.objects.get(id=event_pk)
-        results = found_event.event_set.all()
-        return render_to_response('ajax/searchresults.html', {"events": results})
-
     if request.method == "POST" and 'category_pk' in request.POST and request.is_ajax():
+
         category_pk = request.POST['category_pk']
         found_category = Category.objects.get(id=category_pk)
-        results = found_category.event_set.all()
-        return render_to_response('ajax/searchresults.html', {"events": results})
+        results = found_category.event_set.filter(event_date__gt=dt_now).all()
+        return render(request, 'ajax/searchresults.html', {"events": results})
 
 
 @csrf_exempt
@@ -201,7 +246,7 @@ def ajax_calculate_ticket_cost(request):
         if the_event.event_status == 'F':
             charges = 0
 
-        return render_to_response('cost.html', {'total': charges})
+        return render(request, 'cost.html', {'total': charges})
 
 
 @login_required
