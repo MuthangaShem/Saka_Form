@@ -54,14 +54,8 @@
         </button>
       </div>
       <div class="modal-body update-e">
-        <form  method="post" action="{% url 'event:update_event' event.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
+
       </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <input type="submit" class="btn btn-primary" value="Save changes">
-      </div>
-      </form>
     </div>
   </div>
 </div>

@@ -78,6 +78,7 @@ $(document).ready(function() {
   });
 
   // Modal Form Details Update
+  // $("body").each("#id_number_of_tickets",function(){
   $("a#trigger-edit-modal").each(function() {
     $(this).click(function() {
       let event_id = $(this).data('href');
@@ -91,7 +92,8 @@ $(document).ready(function() {
       });
 
       modal_ajax.done(function(data) {
-        $("div.update-e").find('input[type=hidden]').after(data);
+        console.log(data)
+        $("div.update-e").after(data);
       });
 
     });
@@ -141,7 +143,7 @@ $(document).ready(function() {
       });
 
       modal_ajax.done(function(data) {
-        $("div#update-e").find('input[type=hidden]').after(data);
+        $("div#update-e").after(data);
       });
 
     });
@@ -202,7 +204,7 @@ $("button#done").click(function(){
 // Update Charges on Modal
 $("body").on('keyup', "#id_number_of_tickets",function(){
 
-  let $eventId =$("#booking-form").find('h3').data('id');
+  let $eventId =$("#booking-form").data('id');
   let $url = $("#booking-form").data('cost-url');
   let $input = $("#id_number_of_tickets").val();
 

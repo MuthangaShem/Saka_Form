@@ -634,7 +634,7 @@ html, body {
 
 .zoomimage img {
  max-width: 100%;
- max-height: 50%;
+ min-height: 100%;
   transition: 0.75s;
   opacity: 0.5;
   filter: alpha(opacity=40);

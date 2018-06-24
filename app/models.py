@@ -12,7 +12,6 @@ class Category(models.Model):
     Initializing Category Model
     """
     category_name = models.CharField(max_length=60)
-    category_description = models.TextField(null=True)
     category_image = models.ImageField(upload_to='category-images')
 
     def __str__(self):
@@ -64,7 +63,6 @@ class Event(models.Model):
     event_owner = models.ForeignKey('Profile')
     event_title = models.CharField(max_length=60)
     event_image = models.ImageField(upload_to='events/', blank=True, null=True)
-    event_type = models.ForeignKey('EventType')
     event_category = models.ForeignKey('Category')
     event_status = models.CharField(max_length=2, choices=EVENT_CHOICES, null=True)
     event_charges = models.CharField(max_length=8, null=True, validators=[RegexValidator(
@@ -85,25 +83,19 @@ class Event(models.Model):
     def delete_event(self):
         self.delete()
 
+    def ticket_count(self):
+        return self.eventticket_set.filter(event_ticket_taken=False).count()
+
     class Meta:
         ordering = ['-event_created_on']
 
 
-class EventType(models.Model):
+class TicketBooking(models.Model):
     """
-    Initializing EventType Model
+    Initializing TicketBooking Model
     """
-    type_name = models.CharField(max_length=60)
-
-    def __str__(self):
-        return self.type_name
-
-
-class Ticket(models.Model):
-    """
-    Initializing Ticket Model
-    """
-    event_id = models.ForeignKey('Event')
+    profile = models.ForeignKey('Profile')
+    event = models.ForeignKey('Event')
     profile_idf = models.CharField(max_length=8, verbose_name="Identification Number",
                                    validators=[RegexValidator(regex=r'^(\d{7}|\d{8})$', message='ID number must be numeric and eight characters'), ])
     profile_phone = models.CharField(max_length=15, validators=[RegexValidator(
@@ -111,3 +103,19 @@ class Ticket(models.Model):
     number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
     ticket_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.event.event_title
+
+
+class EventTicket(models.Model):
+    """
+    Initializing EventTicket Model
+    """
+    event = models.ForeignKey('Event')
+    event_booking = models.ForeignKey('TicketBooking', null=True)
+    event_ticket_no = models.CharField(max_length=50, unique=True)
+    event_ticket_taken = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.event_ticket_no
