@@ -207,6 +207,12 @@ $("body").on('keyup', "#id_number_of_tickets",function(){
 
 });
 
+// Fade out alert messages after four seconds
+window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+          $(this).remove();
+        });
+      }, 5000);
 
 });
 
