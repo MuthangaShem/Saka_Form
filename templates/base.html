@@ -57,6 +57,14 @@
           </div>
         </div>
 
+          <button style="margin-right: 50px" data-user-id="{{ user.id }}" data-sub-url="{% url 'app:subscribe' %}" class="btn btn-danger btn-sm" id="navbarSubscribe">
+          {% if user.profile.profile_subscribed %}
+            Unsubscribe
+          {% else %}
+          Subscribe
+          {% endif %}
+        </button>
+
         <a href="{% url 'accounts:logout' %}">
           <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Logout</button>
         </a>

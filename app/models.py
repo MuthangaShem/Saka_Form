@@ -37,6 +37,7 @@ class Profile(models.Model):
     profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80, blank=True, null=True)
     profile_location = models.CharField(max_length=254, null=True)
+    profile_subscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.profile_owner.username

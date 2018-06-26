@@ -77,6 +77,35 @@ $(document).ready(function() {
     })
   });
 
+  // Subscribe Functionality
+  $('#navbarSubscribe').click(function(event) {
+      event.preventDefault();
+
+      let user_id = $(this).data('user-id');
+      let subscribe_url = $(this).data('sub-url');
+
+      let ajax1 = $.ajax({
+        url: subscribe_url,
+        type: 'POST',
+        data: {
+          user_pk: user_id
+        }
+      });
+
+      ajax1.done(function(data) {
+
+        if (data == "subscribed"){
+          $('#navbarSubscribe').empty().html('Unsubscribe');
+        }
+
+        if (data == "unsubscribed"){
+          $('#navbarSubscribe').empty().html('Subscribe')
+        }
+
+      });
+
+  });
+
   // Modal Form Details Update
   // $("body").each("#id_number_of_tickets",function(){
   $("a#trigger-edit-modal").each(function() {

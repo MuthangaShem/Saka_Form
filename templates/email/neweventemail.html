@@ -1,0 +1,26 @@
+
+<center id="invoice-POS">
+   <div id="bot">
+
+         <div id="table">
+          <h1>NEW EVENT -- {{ data.event_title }}</h1>
+          <p>
+            There  is a new event scheduled on {{  data.event_date }}.
+
+            <br>
+            {% ifequal data.get_event_status_display "PAID" %}
+            <br> The event is {{ data.get_event_status_display }}
+            -- KES <span style="color:green;">{{data.event_charges}}</span>
+            {% else %} The event is {{ data.get_event_status_display }}
+						{% endifequal %}
+            <br> Please log in to your account to book a ticket
+          </p>
+         </div><!--End Table-->
+
+         <div id="legalcopy">
+           <p class="legal"><strong>Thank you for using sakaform!</strong>
+           </p>
+         </div>
+
+       </div>
+ </center>

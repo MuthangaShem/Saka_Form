@@ -12,3 +12,15 @@ def send_ticket_email(receiver, data):
     msg = EmailMultiAlternatives(subject, text_content, sender, [receiver])
     msg.attach_alternative(html_content, 'text/html')
     msg.send()
+
+
+def send_new_event_email(receiver, data):
+    subject = 'NEW EVENT NOTIFICATION'
+    sender = 'coremoringa@gmail.com'
+
+    html_content = render_to_string('email/neweventemail.html', {"data": data})
+    text_content = render_to_string('email/neweventemail.txt', {"data": data})
+
+    msg = EmailMultiAlternatives(subject, text_content, sender, [receiver])
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
