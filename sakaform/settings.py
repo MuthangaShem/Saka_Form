@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django_extensions',
     'bootstrap_datepicker_plus',
+    'mapwidgets',
 ]
 
 MIDDLEWARE = [
@@ -190,4 +191,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 BOOTSTRAP4 = {
     'include_jquery': True,
+}
+
+
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocationName", "Nairobi"),
+        ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'kenya'}}),
+        ("markerFitZoom", 12),
+    ),
+    "GOOGLE_MAP_API_KEY": config("GOOGLE_MAP_API_KEY"),
 }

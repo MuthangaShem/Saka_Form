@@ -146,7 +146,7 @@ def register_event(request, event_id):
 
     this_event = Event.objects.get(id=event_id)
 
-    form = PaymentGateway(request.POST or None, request.FILES)
+    form = PaymentGateway(request.POST)
 
     if form.is_valid():
         ticke = form.save(commit=False)
@@ -188,6 +188,7 @@ def register_event(request, event_id):
                 event_ticket_taken=True, event_booking=ticke)
 
             data = TicketBooking.objects.filter(profile=profile_instance, event=this_event).all()
+
             send_ticket_email(profile_instance.profile_owner.email, data)
             messages.info(request, 'Check in your mail for Ticket(s)')
 

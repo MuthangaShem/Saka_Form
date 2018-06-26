@@ -12,6 +12,7 @@
 			{{ message }}
 		</div>
 	{% endfor %}
+	<div id="map"></div>
 	<!-- ACCORDION -->
 	{% if categories|length > 0 %}
 		<div id="accordion">
@@ -75,7 +76,7 @@
 						{% if user.is_authenticated %}
 
 						{% ifequal event.ticket_count 0 %}
-						
+
 						<a disabled="disabled" style="cursor:not-allowed; pointer-events:none; display: inline-block;" type="button" id="trigger-payment-modal" data-href="{{ event.id }}" class="btn btn-success" data-toggle="modal" data-target="#paymentmodal">
 							No Tickets Available
 						</a>
