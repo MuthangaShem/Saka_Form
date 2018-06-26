@@ -1,10 +1,10 @@
 from django.db import models
+from geoposition.fields import GeopositionField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import RegexValidator
 
-# from location_field.models.plain import PlainLocationField
 
 
 class Category(models.Model):
@@ -68,7 +68,7 @@ class Event(models.Model):
     event_charges = models.CharField(max_length=8, null=True, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid amount'), ])
     event_description = models.TextField()
-    event_location = models.CharField(max_length=60)
+    event_location = GeopositionField()
     number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
     event_date = models.DateTimeField(null=True, blank=True)

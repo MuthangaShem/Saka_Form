@@ -3,6 +3,7 @@ from django import forms
 from .models import Event, TicketBooking
 from django.contrib.auth.models import User
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -12,7 +13,7 @@ class Event_Creation(forms.ModelForm):
         fields = ('event_title', 'event_image', 'event_location', 'event_category', 'event_status',
                   'event_charges', 'event_description', 'number_of_tickets', 'event_date',)
         widgets = {
-                  'event_date': DateInput()
+                  'event_date': DateInput(),
                   }
 
 

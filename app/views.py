@@ -156,8 +156,10 @@ def register_event(request, event_id):
 
             payment = africastalking.Payment
 
-            res = payment.mobile_checkout(product_name='BusinessAcc',
-                                          phone_number=phone, currency_code='KES', amount=charges)
+            ticke.save()
+
+            payment.mobile_checkout(product_name='BusinessAcc',
+                                    phone_number=phone, currency_code='KES', amount=charges, metadata={'event_booking_id': str(ticke.id), 'event_id': str(this_event.id), 'num_of_tck': str(ticket_number), 'profile_id': str(profile_instance.id)})
 
             messages.info(request, 'Please check your phone to confirm payment')
 
@@ -167,8 +169,6 @@ def register_event(request, event_id):
                 'event_ticket_no')[:int(ticket_number)]
 
             taken_tck = [tck for kct in m for tck in kct.values()]
-
-            tb = TicketBooking.objects.filter(event=this_event).first()
 
             ticke.ticket_confirmed = True
             ticke.save()
@@ -183,17 +183,49 @@ def register_event(request, event_id):
     return redirect('home')
 
 
-# https://www.entrepreneur.com/video/315293
 @csrf_exempt
 def africas_callback(request):
-    callback = request.body
-    callback_json = json.loads(callback)
-    print(callback_json)
-    # if callback_json['status'] == "Success":
-    #
-    # if callback_json['status'] == "Failed":
 
-    return HttpResponse(callback_json)
+    callback = request.body
+
+    callback_json = json.loads(callback)
+
+    metadata = callback_json['requestMetadata']
+
+    ticketbooking_id = metadata['event_booking_id']
+    event_id = metadata['event_id']
+    ticket_number = metadata['num_of_tck']
+    profile_id = metadata['profile_id']
+
+    profile_instance = Profile.objects.get(id=profile_id)
+    this_event = Event.objects.get(id=event_id)
+    ticke = TicketBooking.objects.get(id=ticketbooking_id)
+
+    if callback_json['status'] == "Success":
+
+        m = EventTicket.objects.filter(event=this_event, event_ticket_taken=False).values(
+            'event_ticket_no')[:int(ticket_number)]
+
+        taken_tck = [tck for kct in m for tck in kct.values()]
+
+        ticke.ticket_confirmed = True
+        ticke.save()
+
+        EventTicket.objects.filter(event_ticket_no__in=taken_tck).update(
+            event_ticket_taken=True, event_booking=ticke)
+
+        data = TicketBooking.objects.filter(profile=profile_instance, event=this_event,
+                                            ticket_confirmed=True).all()
+
+        send_ticket_email(profile_instance.profile_owner.email, data)
+        msg = "Ticket purchase successful. Check your email for tickets"
+
+    if callback_json['status'] == "Failed":
+        msg = "Ticket purchase unsuccessful!"
+
+    messages.info(request, msg)
+
+    return redirect(home)
 
 
 def ajax_search_event(request):
