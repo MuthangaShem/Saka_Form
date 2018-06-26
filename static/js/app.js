@@ -28,9 +28,7 @@ $(document).ready(function() {
     });
 
     ajax1.done(function(data) {
-      $('div#e-content').empty().find(".blog-card").empty()
-      $('div#e-content').empty()
-      // $('div#e-content').empty().html(data)
+      $('div#e-content').empty().html(data)
     });
 
   });
