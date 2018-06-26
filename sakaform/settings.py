@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
 from decouple import config
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 
@@ -41,18 +43,6 @@ SECRET_KEY = config('SECRET_KEY')
 AFRICAS_KEY = config('AFRICAS_KEY')
 AFRICAS_USERNAME = config('AFRICAS_USERNAME')
 
-# github auth
-SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
-SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
-
-# twitter auth
-SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY')
-SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET')
-
-# social auth
-SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')
-
 # social google
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -73,10 +63,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
     'app.apps.AppConfig',
     'social_django',
     'bootstrap4',
+    'bootstrap3',
+    'accounts.apps.AccountsConfig',
     'django_extensions',
     'bootstrap_datepicker_plus',
     'mapwidgets',
@@ -109,6 +100,10 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
             ],
         },
     },
@@ -170,12 +165,11 @@ TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = [
+
     os.path.join(BASE_DIR, "static"),
 ]
 
@@ -187,12 +181,12 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-BOOTSTRAP4 = {
-    'include_jquery': True,
-}
-
+# BOOTSTRAP4 = {
+#     'include_jquery': True,
+# }
+#
 
 MAP_WIDGETS = {
     "GooglePointFieldWidget": (

@@ -10,13 +10,20 @@
     {{ message }}
   </div>
 {% endfor %}
-<div class="container main">
-    <div class="row">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <input type="submit" class="btn btn-outline-secondary" value="Create">
-        </form>
+<div class="container-fluid main">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card "  style="width: 100%;margin-bottom: 10%;border:2px solid #75D13B;">
+        <h5 class="card-header text-center" style="font-family: 'Raleway', sans-serif;font-weight: bold;font-size: 30px">Create an Event</h5>
+        <div class="card-body col-md-8 offset-md-2">      
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{form.media}}
+              {% bootstrap_form form%}
+              <input type="submit" class="btn btn-outline-secondary" value="Create">
+          </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock%}

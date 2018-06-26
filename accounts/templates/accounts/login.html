@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% load bootstrap4 %} {% block content %}
 <div class="container-fluid" style="background-image: url(); ; height: 100vh">
   <div class="row">
-    <div class="col-md-6 ">
-      <div class="card "  style="width: 25rem; margin-top: 20%;">
+    <div class="col-md-4 offset-md-2">
+      <div class="card "  style="width: 18rem; margin-top: 20%;">
         <h5 class="card-header text-center">Log In</h5>
         <div class="card-body">
           <form method="POST">
@@ -11,18 +11,17 @@
           </form>
         </div>
       </div>
-      <div class="card mt-2" style="width: 25rem;">
+      <div class="card mt-2" style="width: 18rem;">
         <div class="card-body">
           <p class="textsize text-center">Don't have an account? <a href="{% url 'accounts:signup' %}" class="card-link"> Sign Up</a></p>
         </div>
 
       </div>
     </div>
-    <div class="col-md-4 ">
+    <div class="col-md-4 offset-md-2">
       <div class="card"  style="width: 18rem; margin-top: 20%;">
-        <p>
-          <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
-        </p>
+          <p><strong>-- OR --</strong></p>
+          <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
         </div>
     </div>
   </div>

@@ -28,7 +28,9 @@ $(document).ready(function() {
     });
 
     ajax1.done(function(data) {
-      $('div#e-content').empty().html(data)
+      $('div#e-content').empty().find(".blog-card").empty()
+      $('div#e-content').empty()
+      // $('div#e-content').empty().html(data)
     });
 
   });
@@ -128,6 +130,27 @@ $(document).ready(function() {
     });
 
   });
+  // Modal Payment Form Details Update
+  // $("a#trigger-payment-modal").each(function() {
+  //   $(this).click(function() {
+  //     let event_id = $(this).data('href');
+  //
+  //     let modal_ajax = $.ajax({
+  //       url: '/event/manage_event/',
+  //       type: 'GET',
+  //       data: {
+  //         'event_id': event_id
+  //       },
+  //     });
+  //
+  //     modal_ajax.done(function(data) {
+  //       $("div.update-e").find('input[type=hidden]').after(data);
+  //     });
+  //
+  //   });
+  //
+  // });
+
 
   //Ensure forms are removed in modal
   $("#editeventmodal").on("hidden.bs.modal", function () {

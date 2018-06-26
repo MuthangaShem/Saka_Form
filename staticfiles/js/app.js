@@ -11,8 +11,8 @@ $(document).ready(function() {
 
   // Ajax Loader Stop Trigger
   $(document).ajaxStop(function() {
-    $('#loader').hide();
-    $('div#e-content').show();
+    // $('#loader').hide();
+    // $('div#e-content').show();
   })
 
   // Search Functionality
@@ -128,6 +128,27 @@ $(document).ready(function() {
     });
 
   });
+  // Modal Payment Form Details Update
+  // $("a#trigger-payment-modal").each(function() {
+  //   $(this).click(function() {
+  //     let event_id = $(this).data('href');
+  //
+  //     let modal_ajax = $.ajax({
+  //       url: '/event/manage_event/',
+  //       type: 'GET',
+  //       data: {
+  //         'event_id': event_id
+  //       },
+  //     });
+  //
+  //     modal_ajax.done(function(data) {
+  //       $("div.update-e").find('input[type=hidden]').after(data);
+  //     });
+  //
+  //   });
+  //
+  // });
+
 
   //Ensure forms are removed in modal
   $("#editeventmodal").on("hidden.bs.modal", function () {

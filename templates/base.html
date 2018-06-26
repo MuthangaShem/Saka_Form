@@ -7,94 +7,108 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="https://i.imgur.com/PbCNmPB.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://i.imgur.com/eKeWgsK.png" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 
     <title>Saka Form</title>
     {% block styles %}
       {% bootstrap_css %}
-      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+      <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
 
     {{ form.media }}
   </head>
 
-  <body style=" margin: 0;padding: 0;margin-top: 5%;height:100vh">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="height: 60px; border-bottom: solid #75D13B 4px;">
-      <div class="navbar-header" style=" float: left;padding: 15px; text-align: center;width: 100%;">
-        <a class="navbar-brand" href="{% url 'home' %}" style="float:none;">
-          <img src="https://i.imgur.com/PbCNmPB.png" width="30" height="30" class="d-inline-block align-top" alt="">
+  <body style=" margin: 0;padding: 0;height:100vh;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light " style="font-family: 'Raleway', sans-serif;font-weight:bolder;border-bottom:5px solid #75D13B;padding: 0;">
+        <a class="navbar-brand" href="{% url 'home' %}" style="margin: 0;">
+          <img src="https://i.imgur.com/eKeWgsK.png" width="30" height="30" class="d-inline-block align-top" alt="">
           SakaForm
         </a>
-      </div>
-      {% if user.is_authenticated %}
-        <h6 style="color: orange">Logged in as
-          {{user.username|title}}
-        </h6>
 
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Events
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'event:create_event' %}">Create Event</a>
-            {% if user.profile.event_set.all %}
-            <a class="dropdown-item" href="{% url 'event:manage_event' %}">Manage Event(s)</a>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            profile
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'accounts:settings' %}">profile preferences</a>
-            <a class="dropdown-item" href="{% url 'accounts:password' %}">manage password</a>
-          </div>
-        </div>
-
-          <button style="margin-right: 50px" data-user-id="{{ user.id }}" data-sub-url="{% url 'app:subscribe' %}" class="btn btn-danger btn-sm" id="navbarSubscribe">
-          {% if user.profile.profile_subscribed %}
-            Unsubscribe
-          {% else %}
-          Subscribe
-          {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a href="{% url 'accounts:logout' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Logout</button>
-        </a>
+        <div class="collapse navbar-collapse" id="navbar-collapse-3">
+          <ul class="navbar-nav navbar-left">
+            <li class="nav-item" style="margin-top:10px;padding: 0;">
+              <form id="custom-search-input">
+                {% csrf_token %}
+                <div class="input-group">
+                  <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
+                  <span class="input-group-btn">
+                  </span>
+                </div>
+              </form>
+            </li>
 
-      {% else %}
-        <a href="{% url 'accounts:signup' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Sign Up</button>
-        </a>
-        <a href="{% url 'accounts:login' %}">
-          <button style="margin-right: 50px" class="btn btn-danger btn-sm" id="navbarNavDropdown">Login</button>
-        </a>
-      {% endif %}
+          </ul>
+          <ul class="navbar-nav navbar-right">
+             <li class="nav-item ">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+             {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Event
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'event:create_event' %}">Create event</a>
+                {% if user.profile.event_set.all %}
+                <a class="dropdown-item" href="{% url 'event:manage_event' %}">Manage Event</a>
+                {% endif %}
+              </div>
+            </li>
+            <li class="nav-item dropdown" style="border-left: 3px solid orange;padding-left: 10px ">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username|title}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'accounts:password' %}">Manage Password</a>
+                <a class="dropdown-item" href="{% url 'accounts:settings' %}">Profile Preferences</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log Out</a>
+              </div>
+            </li>
+
+              {% else %}
+            <li class="nav-item">
+
+              <a class="nav-link" href="{% url 'accounts:signup' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:login' %}" >Login</a>
+            </li>
+              {% endif %}
+            <li class="nav-item">
+              <button style="margin-right: 50px" data-user-id="{{ user.id }}" data-sub-url="{% url 'app:subscribe' %}" class="btn btn-danger btn-sm" id="navbarSubscribe">
+              {% if user.profile.profile_subscribed %}
+                Unsubscribe
+              {% else %}
+              Subscribe
+              {% endif %}
+              </button>
+            </li>
+          </ul>
+        </div>
+
+
+
     </nav>
 
-    <form id="custom-search-input">
-      {% csrf_token %}
-      <div class="input-group col-md-6">
-        <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
-        <span class="input-group-btn">
-          <button class="btn btn-danger" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </form>
 
     <div class="row">
-      <div id="loader">
+      <div id="loader" style="z-index:100;">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
@@ -106,20 +120,48 @@
         <div class="lading"></div>
       </div>
     </div>
-
     {% block content %}
     {% endblock %}
 
     {% block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+      <script src="http://osvaldas.info/examples/main.js"></script>
+      <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+
+      <script src="http://osvaldas.info/examples/drop-down-navigation-touch-friendly-and-responsive/doubletaptogo.js"></script>
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
       <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
-      <script src="{% static 'js/app.js' %}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $(document).on("google_point_map_widget:marker_create", function (e, place, lat, lng, locationInputElem, mapWrapID) {
+    console.log(place); // google place object
+    console.log(locationInputElem); // django widget textarea widget (hidden)
+    console.log(lat, lng); // created marker coordinates
+    console.log(mapWrapID); // map widget wrapper element ID
+});
 
+$(document).on("google_point_map_widget:marker_change", function (e, place, lat, lng, locationInputElem, mapWrapID) {
+    console.log(place); // google place object
+    console.log(locationInputElem); // django widget textarea widget (hidden)
+    console.log(lat, lng);  // changed marker coordinates
+    console.log(mapWrapID); // map widget wrapper element ID
+});
+
+$(document).on("google_point_map_widget:marker_delete", function (e, lat, lng, locationInputElem, mapWrapID) {
+    console.log(locationInputElem); // django widget textarea widget (hidden)
+    console.log(lat, lng);  // deleted marker coordinates
+    console.log(mapWrapID); // map widget wrapper element ID
+})
+    });
+      </script>
       {% bootstrap_javascript %}
     {% endblock %}
   </body>

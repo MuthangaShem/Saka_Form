@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap3 %}
+{% block content %}
+  <div class="page-section" id="projects">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="widget-title">EVENTS</h4>
+
+      </div>
+    </div>
+    {% for event in events %}
+      <div class="row projects-holder">
+        <div class="col-md-4 col-sm-6">
+          <div class="project-item">
+            <img src="{{ event.event_image.url}}" alt="">
+            <div class="project-hover">
+              <div class="inside">
+                <h4>
+                  EVENT TITLE:{{ event.event_title }}
+                </h4>
+                <h4>EVENT DESCRIPTION:{{ event.event_description }}
+                </h4>
+              </div>
+            </div>
+          </div>
+          <h4>
+            EVENT TOPIC:{{ event.event_topic}}
+          </h4>
+          <br>
+          <h4>EVENT TYPE:{{ event.event_type }}</h4><br>
+          <h4>EVENT LOCATION:{{ event.event_location }}</h4><br>
+          <h4>TICKETS AVAILABLE:{{ event.number_of_tickets }}</h4>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+</div>
+<hr>
+{% endblock %}
