@@ -16,14 +16,15 @@
     <title>Saka Form</title>
     {% block styles %}
       {% bootstrap_css %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<!--       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ -->      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
   </head>
 
@@ -105,15 +106,6 @@
 
     </nav>
 
-    <!-- <form id="custom-search-input">
-      {% csrf_token %}
-      <div class="input-group">
-        <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
-        <span class="input-group-btn">
-        </span>
-      </div>
-    </form> -->
-
     <div class="row">
       <div id="loader">
         <div class="dot"></div>
@@ -137,38 +129,13 @@
 
       <script src="http://osvaldas.info/examples/drop-down-navigation-touch-friendly-and-responsive/doubletaptogo.js"></script> 
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
-      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
       <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
+      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $(document).on("google_point_map_widget:marker_create", function (e, place, lat, lng, locationInputElem, mapWrapID) {
-    console.log(place); // google place object
-    console.log(locationInputElem); // django widget textarea widget (hidden)
-    console.log(lat, lng); // created marker coordinates
-    console.log(mapWrapID); // map widget wrapper element ID
-});
-
-$(document).on("google_point_map_widget:marker_change", function (e, place, lat, lng, locationInputElem, mapWrapID) {
-    console.log(place); // google place object
-    console.log(locationInputElem); // django widget textarea widget (hidden)
-    console.log(lat, lng);  // changed marker coordinates
-    console.log(mapWrapID); // map widget wrapper element ID
-});
-
-$(document).on("google_point_map_widget:marker_delete", function (e, lat, lng, locationInputElem, mapWrapID) {
-    console.log(locationInputElem); // django widget textarea widget (hidden)
-    console.log(lat, lng);  // deleted marker coordinates
-    console.log(mapWrapID); // map widget wrapper element ID
-})
-    });
-      </script>
       {% bootstrap_javascript %}
     {% endblock %}
   </body>
