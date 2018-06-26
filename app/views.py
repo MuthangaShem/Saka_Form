@@ -14,7 +14,7 @@ from django.conf import settings
 from django.contrib import messages
 import africastalking
 import uuid
-from .email import send_ticket_email
+from .email import send_ticket_email, send_new_event_email
 
 
 africas_key = settings.AFRICAS_KEY
@@ -76,6 +76,17 @@ def create_event(request):
 
             for item in g:
                 EventTicket.objects.bulk_create([EventTicket(event=event, event_ticket_no=item), ])
+
+            # Email all subscribed user who are interested in that event category
+            event_cat = [event.event_category]
+            users = Profile.objects.filter(
+                profile_interest__in=event_cat, profile_subscribed=True).all()
+
+            subscribed_emails = [
+                user.profile_owner.email for user in users if user.profile_owner.id is not current_user.id]
+
+            for email in subscribed_emails:
+                send_new_event_email(email, event)
 
             return redirect('home')
     else:
@@ -279,6 +290,32 @@ def ajax_calculate_ticket_cost(request):
             charges = 0
 
         return render(request, 'cost.html', {'total': charges})
+
+
+@csrf_exempt
+def ajax_subscribe_user(request):
+
+    if request.method == "POST" and 'user_pk' in request.POST and request.is_ajax():
+
+        user_id = request.POST['user_pk']
+
+        profile = Profile.objects.get(id=user_id)
+
+        if profile.profile_subscribed == True:
+
+            Profile.objects.filter(id=user_id).update(profile_subscribed=False)
+
+            status = "unsubscribed"
+
+        if profile.profile_subscribed == False:
+
+            Profile.objects.filter(id=user_id).update(profile_subscribed=True)
+
+            status = "subscribed"
+
+        status = json.dumps(status)
+
+        return HttpResponse(status, content_type='application/json')
 
 
 @login_required

@@ -83,8 +83,6 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django_extensions',
     'bootstrap_datepicker_plus',
-    'mapwidgets',
-    'geoposition',
 ]
 
 MIDDLEWARE = [
@@ -214,23 +212,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 BOOTSTRAP4 = {
     'include_jquery': True,
-}
-
-MAP_WIDGETS = {
-                "GooglePointFieldWidget": (
-                    ("zoom", 15),
-                    ("mapCenterLocationName", 'Nairobi'),
-                    ),
-                    "GOOGLE_MAP_API_KEY": "AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU"
-            }
-
-GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBFfeGMBwCmtho5OIbmOdsmvaAwhtAyGwU'
-
-GEOPOSITION_MAP_OPTIONS = {
-    'minZoom': 3,
-    'maxZoom': 15,
-}
-
-GEOPOSITION_MARKER_OPTIONS = {
-    'cursor': 'move'
 }

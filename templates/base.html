@@ -89,8 +89,20 @@
               <a class="nav-link" href="{% url 'accounts:login' %}" >Login</a>
             </li>
               {% endif %}
+            <li class="nav-item">
+              <button style="margin-right: 50px" data-user-id="{{ user.id }}" data-sub-url="{% url 'app:subscribe' %}" class="btn btn-danger btn-sm" id="navbarSubscribe">
+              {% if user.profile.profile_subscribed %}
+                Unsubscribe
+              {% else %}
+              Subscribe
+              {% endif %}
+              </button>
+            </li>
           </ul>
         </div>
+        
+
+
     </nav>
 
     <!-- <form id="custom-search-input">

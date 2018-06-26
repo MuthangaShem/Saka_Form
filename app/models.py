@@ -1,5 +1,4 @@
 from django.db import models
-from geoposition.fields import GeopositionField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -39,6 +38,7 @@ class Profile(models.Model):
     profile_interest = models.ManyToManyField('Category', related_name='interests', null=True)
     profile_name = models.CharField(max_length=80, blank=True, null=True)
     profile_location = models.CharField(max_length=254, null=True)
+    profile_subscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.profile_owner.username
@@ -68,7 +68,7 @@ class Event(models.Model):
     event_charges = models.CharField(max_length=8, null=True, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid amount'), ])
     event_description = models.TextField()
-    event_location = GeopositionField()
+    event_location = models.CharField(max_length=60)
     number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
     event_date = models.DateTimeField(null=True, blank=True)
