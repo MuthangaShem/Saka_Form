@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'app.apps.AppConfig',
     'social_django',
     'bootstrap4',
@@ -70,6 +71,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django_extensions',
     'bootstrap_datepicker_plus',
+    'leaflet',
 ]
 
 MIDDLEWARE = [
@@ -183,3 +185,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-1.300561, 36.784549),
+}

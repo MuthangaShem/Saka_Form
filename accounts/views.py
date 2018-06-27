@@ -49,7 +49,7 @@ def settings(request):
                if formset.is_valid():
                    updated_user.save()
                    formset.save()
-                   return redirect(index)
+                   return redirect(reverse("home"))
 
    return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
 

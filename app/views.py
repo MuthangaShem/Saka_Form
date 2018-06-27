@@ -15,6 +15,7 @@ from django.contrib import messages
 import africastalking
 import uuid
 from .email import send_ticket_email, send_new_event_email
+from django.http.response import JsonResponse
 
 
 africas_key = settings.AFRICAS_KEY
@@ -349,3 +350,28 @@ def profile(request):
                     return redirect(reverse('home'))
 
     return render(request, 'profile.html', {'profile_data': profile_details, "formset": formset, 'updated_user': update_form})
+
+def data(request):
+    events = Event.objects.all()
+    d = []
+    for event in events:
+        
+        y,x = event.geom.split(",")
+        d.append(
+        {
+        "type": "FeatureCollection",
+        "features": [{
+        "type": "Feature",
+        "properties": {
+           'name': event.event_title,
+           'description': event.event_description,
+           'charges': event.event_charges,
+           'venue': event.event_location
+        },
+        "geometry": {
+        "type": "Point",
+        "coordinates": [float(y),float(x)]
+        }}]
+        }
+        )
+    return JsonResponse(d,safe=False)

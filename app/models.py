@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from django.core.validators import RegexValidator
 
 
-
 class Category(models.Model):
     """
     Initializing Category Model
@@ -69,6 +68,7 @@ class Event(models.Model):
         regex=r'^(\d{1,5})$', message='Enter a valid amount'), ])
     event_description = models.TextField()
     event_location = models.CharField(max_length=60)
+    geom = models.CharField(max_length=255, default='0,0')
     number_of_tickets = models.CharField(max_length=8, validators=[RegexValidator(
         regex=r'^(\d{1,5})$', message='Enter a valid number'), ])
     event_date = models.DateTimeField(null=True, blank=True)

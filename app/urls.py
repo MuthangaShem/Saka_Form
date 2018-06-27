@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^ajax/accordion/$', views.ajax_accordion_redirect, name='process_accordion'),
     url(r'^ajax/subscribe/$', views.ajax_subscribe_user, name='subscribe'),
     url(r'^callback/$', views.africas_callback, name='africastalking_cal'),
+    url(r'^data/', views.data)
 ]
 
 if settings.DEBUG:
