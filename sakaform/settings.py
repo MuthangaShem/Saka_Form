@@ -43,18 +43,6 @@ SECRET_KEY = config('SECRET_KEY')
 AFRICAS_KEY = config('AFRICAS_KEY')
 AFRICAS_USERNAME = config('AFRICAS_USERNAME')
 
-# github auth
-# SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
-# SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
-
-# # twitter auth
-# SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY')
-# SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET')
-
-# # social auth
-# SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')
-# SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')
-
 # social google
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -62,7 +50,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = config('DEBUG', default=False, cast=bool)
-
 
 ALLOWED_HOSTS = ['*']
 
@@ -130,11 +117,12 @@ WSGI_APPLICATION = 'sakaform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.database'),
-        'OPTIONS':{'timeout':20}
-    }
-}
+        'NAME': os.path.join(BASE_DIR, 'database.db'),
 
+    },
+    'OPTIONS':{
+        'timeout':20}
+}
 
 
 # Password validation
@@ -176,21 +164,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Africa/Nairobi'
 
 USE_TZ = True
-
-
-
-# authentication backends
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.twitter.TwitterOAuth',  # for Twitter authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId', # for Google authentication
-    'social_core.backends.google.GoogleOAuth2', # for Google authentication
-
-    'django.contrib.auth.backends.ModelBackend',
-)
-
 
 STATIC_URL = '/static/'
 
