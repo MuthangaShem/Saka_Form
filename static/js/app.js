@@ -20,6 +20,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     let search_form = $('form#custom-search-input');
+    let search_url = search_form.data("url")
 
     let ajax1 = $.ajax({
       url: "event/ajax/search/",
@@ -132,7 +133,7 @@ $(document).ready(function() {
   // $("a#trigger-payment-modal").each(function() {
   //   $(this).click(function() {
   //     let event_id = $(this).data('href');
-  //
+  
   //     let modal_ajax = $.ajax({
   //       url: '/event/manage_event/',
   //       type: 'GET',
@@ -140,13 +141,13 @@ $(document).ready(function() {
   //         'event_id': event_id
   //       },
   //     });
-  //
+  
   //     modal_ajax.done(function(data) {
   //       $("div.update-e").find('input[type=hidden]').after(data);
   //     });
-  //
+  
   //   });
-  //
+  
   // });
 
 

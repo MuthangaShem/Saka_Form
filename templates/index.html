@@ -7,56 +7,31 @@
 
 	{% for message in messages %}
 	<div class="container">
-
 		<div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 			{{ message }}
 		</div>
-	</div>
 	{% endfor %}
 
-	<div class="col-md-3" style="height:100%;width:100%">
-	<!-- ACCORDION -->
-	{% if categories|length > 0 %}
-		<div id="accordion">
-			<div class="card">
-				<div class="card-header" id="heading-1">
-					<h5 class="mb-0">
-						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-							CATEGORY
-						</a>
-					</h5>
-				</div>
-				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
-					{% for category in categories %}
-
-						<div class="card-body">
-
-								<a href="" data-catid="{{ category.id }}" class="cat-accordion">{{ category.category_name|capfirst }}</a>
-
-						</div>
-
-					{% endfor %}
-				</div>
-
-			</div>
-		</div>
+<div class="row" style="margin-top: 5%">
+		<div class="col-md-3">
 			<div id='map' style="height:80vh;width:100%"></div>
-	{% endif %}
+		</div>
 	<!-- END ACCORDION -->
-	</div>
 	<!--PEN CODE-->
 
-	<div class="col-md-9" id="e-content">
+	<div class="col-md-7" id="e-content">
 		{% for event in events %}
 
-				<div class="blog-card">
+				<div class="blog-card" style=";height: auto;">
 					{% if event.event_image %}
-						<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+						<div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt="" style="max-height: 100%;
+    max-width: 100%;"></div>
 					{% else %}
-						<div class="photo photo1"><img src="{% static 'images/no-event.jpg' %}" class="img-responsive myImg" alt=""></div>
+						<div class="photo photo1"><img src="{% static 'images/no-event.jpg' %}" class="img-responsive myImg" alt="" style="max-height: 100%;
+    max-width: 100%;"></div>
 					{% endif %}
 					<ul class="details">
 						<li class="author">{{event.event_owner}}</li>
@@ -88,7 +63,7 @@
 
 						{% else %}
 
-						<a type="button" id="trigger-payment-modal" data-href="{{ event.id }}" class="btn btn-success btn-sm" data-toggle="modal" data-target="#paymentmodal">
+						<a type="button" id="trigger-payment-modal" data-href="{{ event.id }}" class="btn  btn-sm" data-toggle="modal" data-target="#paymentmodal">
 							Register For Event
 						</a>
 
@@ -99,9 +74,9 @@
 				</div>
 				<!-- PAYMENT MODAL  -->
 				{% if user.is_authenticated %}
-				<div class="modal fade" id="paymentmodal" tabindex="-1" role="dialog" aria-labelledby="editeventmodaltitle" aria-hidden="true" data-backdrop="false" style="margin-top: 10%;border: 3px solid #75D13B;">
+				<div class="modal fade" id="paymentmodal" tabindex="-1" role="dialog" aria-labelledby="editeventmodaltitle" aria-hidden="true" data-backdrop="false" >
 					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
+						<div class="modal-content" style="border: 3px solid #75D13B;padding: 7px; box-shadow: 0 0 15px 15px #ccc">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -127,7 +102,38 @@
 				</div>
 		{% endfor %}
 	</div>
+		<div class="col-md-2" style="height:100%;width:100%; " >
+	<!-- ACCORDION -->
+	{% if categories|length > 0 %}
+		<div id="accordion">
+			<div class="card">
+				<div class="card-header" id="heading-1">
+					<h6 class="mb-0">
+						<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+							CATEGORY
+						</a>
+					</h6>
+				</div>
+				<div id="collapse-1" class="collapse" aria-labelledby="heading-1-1">
+					{% for category in categories %}
 
+						<div class="card-body">
+
+								<a href="" data-catid="{{ category.id }}" class="cat-accordion">{{ category.category_name|capfirst }}</a>
+
+						</div>
+
+					{% endfor %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+		</div>
+
+</div>
 	<!--END PEN CODE -->
 
 {% endblock %}

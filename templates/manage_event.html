@@ -12,15 +12,17 @@
 			{{ message }}
 		</div>
 	{% endfor %}
-<div class="col-md-6">
+<div class="col-md-6 offset-md-3" style="margin-top: 5%">
 {% for event in events %}
 
 <div class="container" id="content">
-  <div class="blog-card">
+  <div class="blog-card" style="height: auto;">
     {% if event.event_image %}
-    <div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt=""></div>
+    <div class="photo photo1"><img src="{{ event.event_image.url }}" class="img-responsive myImg" alt="" style="max-height: 100%;
+    max-width: 100%;"></div>
     {% else %}
-    <div class="photo photo1"><img src="{% static 'images/event_image' %}" class="img-responsive myImg" alt=""></div>
+    <div class="photo photo1"><img src="{% static 'images/event_image' %}" class="img-responsive myImg" alt="" style="max-height: 100%;
+    max-width: 100%;"></div>
     {% endif %}
     <ul class="details">
       <li class="author">{{event.event_owner}}</li>

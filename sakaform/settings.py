@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'social_django',
     'bootstrap4',
-    'bootstrap3',
     'accounts.apps.AccountsConfig',
     'django_extensions',
     'bootstrap_datepicker_plus',

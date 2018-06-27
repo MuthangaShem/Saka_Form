@@ -13,31 +13,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://i.imgur.com/eKeWgsK.png" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'js/plugins/leaflet/leaflet.css' %}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="{% static 'js/plugins/leaflet/leaflet.css' %}">
     <link  href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 
     <title>Saka Form</title>
     {% block styles %}
       {% bootstrap_css %}
-      <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
-      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
 
     {{ form.media }}
   </head>
 
-  <body style=" margin: 0;padding: 0;height:100vh;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light " style="font-family: 'Raleway', sans-serif;font-weight:bolder;border-bottom:5px solid #75D13B;padding: 0;">
+  <body style=" margin: 0;padding: 0;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="font-family: 'Raleway', sans-serif;font-weight:bolder;border-bottom:5px solid #75D13B;padding: 0;">
         <a class="navbar-brand" href="{% url 'home' %}" style="margin: 0;">
           <img src="https://i.imgur.com/eKeWgsK.png" width="30" height="30" class="d-inline-block align-top" alt="">
           SakaForm
@@ -50,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-3">
           <ul class="navbar-nav navbar-left">
             <li class="nav-item" style="margin-top:10px;padding: 0;">
-              <form id="custom-search-input">
+              <form id="custom-search-input" data-url="{% url 'app:search_event' %}">
                 {% csrf_token %}
                 <div class="input-group">
                   <input type="text" class="search-query form-control" name='search-term' placeholder="Search"/>
@@ -131,25 +126,25 @@
     {% endblock %}
 
     {% block scripts %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
       <script src="http://osvaldas.info/examples/main.js"></script>
-      <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
 
       <script src="http://osvaldas.info/examples/drop-down-navigation-touch-friendly-and-responsive/doubletaptogo.js"></script>
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAjT5RSv8RGaxktrIJYOLLPmU-SwjqnGvk&libraries=places"></script>
-      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-      <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
       <script src="{% static 'js/jquery.geocomplete.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
-      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-      
+
+
       <script src="{% static 'js/plugins/leaflet/leaflet.js' %}"></script>
       <script src="{% static 'js/leaflet.ajax.min.js' %}"></script>
+      
         <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
         {% for event in events %}
       <script type="text/javascript">
@@ -168,26 +163,26 @@
                 return L.marker(latlng, {
                     icon: L.icon({
                         iconUrl: coolicn,
-                        iconSize: [15, 20],
+                        iconSize: [30, 40],
                         iconAnchor: [12, 28],
                         popupAnchor: [0, -25]
                       }),
                    riseOnHover: true
                 })
-            },  
+            },
             onEachFeature: function(feature, layer){
             var attr = feature.properties;
                 if (attr) {
-                  var content = 
-                  "<table class='table table-striped table-bordered table-condensed'>" + 
-                  "<tr><th>event name</th><td>" + attr.name + 
+                  var content =
+                  "<table class='table table-striped table-bordered table-condensed'>" +
+                  "<tr><th>event name</th><td>" + attr.name +
                   "<tr><th>description</th><td>" + attr.description +
                   "<tr><th>charges</th><td>" + attr.charges +
                   "<tr><th>venue</th><td>" + attr.venue +
                   "<table>";
                   layer.on({
                     click: function (e) {
-                      
+
                       layer.bindPopup(content)
                       mymap.locate();
                       mymap.on('locationfound', function (e) {
@@ -204,28 +199,28 @@
                               L.latLng(coords.lat,coords.lng),
                               L.latLng(point[1], point[0])
                             ],
-                            createMarker: function(i, point, n){ 
+                            createMarker: function(i, point, n){
                                points.push(point.latLng)
-                              
+
                                 //var line = L.polyline(dt).addTo(mymap);
                             },
 
                             router: L.Routing.mapbox('pk.eyJ1IjoiZGVyeSIsImEiOiJjaWY5anJyN3YwMDI5dGNseHoyZzM4Z3R4In0.dToOXYIZ30LH_7VtFbKW4A')
-                            
+
                         }).addTo(mymap);
-                       
+
 
                       });
                       mymap.on('locationerror', function(){
                           alert("please allow saka for app to access your location ")
                       })
-                     
+
 
                     }
                   });
                 }
             }
-    
+
         }).addTo(mymap);
         mymap.on('data:loaded', function(){
             mymap.fitBounds(dt.getBounds())
